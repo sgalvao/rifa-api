@@ -1,0 +1,9 @@
+export type Rifa = {
+  name: string;
+  price: number;
+  image: string;
+  status: string;
+  participants: number;
+  soldNumbers: number[];
+  winnerNumber: number;
+};

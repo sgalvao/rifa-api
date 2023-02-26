@@ -1,0 +1,1 @@
+{"version":3,"file":"module-alias.js","sourceRoot":"","sources":["../../../src/config/module-alias.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;AAAA,2CAA4B;AAC5B,gEAAsC;AAEtC,MAAM,KAAK,GAAG,IAAI,CAAC,OAAO,CAAC,SAAS,EAAE,OAAO,CAAC,CAAA;AAE9C,sBAAW,CAAC,UAAU,CAAC;IACrB,GAAG,EAAE,IAAI,CAAC,IAAI,CAAC,KAAK,EAAE,KAAK,CAAC;CAC7B,CAAC,CAAA"}
