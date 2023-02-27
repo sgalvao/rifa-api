@@ -14,6 +14,7 @@ datasource db {
 model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
+  createdAt DateTime @default(now()) 
   email String @unique
   phone String @unique
 }
@@ -21,7 +22,7 @@ model User {
 model Rifa {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  price        Int
+  price        Float
   image        String
   status       String
   authorId     String
@@ -30,10 +31,14 @@ model Rifa {
   soldNumbers  Int[]
 }
 
-model ReservedNumbers {
+model PaymentIntent {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   numbers Int[]
+  createdAt DateTime @default(now())
   ownerId String
+  rifaId String
+  transactionId String
+  ttl Int @default(600)
 }
 
 model Numbers {

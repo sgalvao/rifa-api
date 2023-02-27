@@ -27,7 +27,6 @@ export const authDirective = (schema, directiveName) => {
         const { resolve = defaultFieldResolver } = fieldConfig;
         fieldConfig.resolve = async function (source, args, context, info) {
           const accessToken = context?.req?.headers?.["authorization"];
-          // Write here your own logic to get the user from accessToken
           const user = await makeLoadUserToken().load(accessToken);
           if (!user) {
             throw new ForbiddenError("Not authorized");

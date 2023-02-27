@@ -29,7 +29,6 @@ const makeAuthentication = () => {
 export default {
   Query: {
     login: (_, args) => {
-      console.log("🚀 ~ file: user.ts ~ line 31 ~ args", args);
       return makeAuthentication().auth(args);
     },
     loadUser: (_, args, { userId }) => {

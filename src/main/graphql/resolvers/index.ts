@@ -1,2 +1,3 @@
 import userResolver from "./user";
-export default [userResolver, ];
+import rifaResolver from "./rifa";
+export default [userResolver, rifaResolver];

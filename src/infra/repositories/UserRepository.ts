@@ -12,10 +12,6 @@ export class UsersRepository {
         phone: params.phone,
       },
     });
-    console.log(
-      "🚀 ~ file: UserRepository.ts:8 ~ UsersRepository ~ params:",
-      params
-    );
 
     return user;
   }

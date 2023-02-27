@@ -17,10 +17,7 @@ export class CreateAccountService {
     if (validateEmail) {
       throw new Error("Email já cadastrado!");
     }
-    console.log(
-      "🚀 ~ file: create-account.ts:23 ~ CreateAccountService ~ param:",
-      param
-    );
+
     return this.usersRepository.create({
       ...param,
     });
