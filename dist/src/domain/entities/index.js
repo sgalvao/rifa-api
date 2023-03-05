@@ -11,6 +11,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("@/domain/entities/User"), exports);
-__exportStar(require("@/domain/entities/Rule"), exports);
-__exportStar(require("@/domain/entities/Vote"), exports);
+__exportStar(require("@/domain/entities/Rifa"), exports);
+__exportStar(require("@/domain/entities/Payment"), exports);
 //# sourceMappingURL=index.js.map

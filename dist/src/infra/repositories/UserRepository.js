@@ -8,8 +8,7 @@ class UsersRepository {
             data: {
                 email: params.email,
                 name: params.name,
-                password: params.password,
-                avatar: params.avatar,
+                phone: params.phone,
             },
         });
         return user;
@@ -19,6 +18,20 @@ class UsersRepository {
             where: {
                 email,
             },
+        });
+        return user;
+    }
+    async findByPhone(phone) {
+        const user = await prisma_client_1.prisma.user.findFirst({
+            where: {
+                phone,
+            },
+        });
+        return user;
+    }
+    async findById(id) {
+        const user = await prisma_client_1.prisma.user.findUnique({
+            where: { id },
         });
         return user;
     }

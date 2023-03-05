@@ -1,3 +1,3 @@
 export * from "@/infra/repositories/UserRepository";
 export * from "@/infra/repositories/RifaRepository";
-export * from "@/infra/repositories/NumberRepository";
+export * from "@/infra/repositories/PaymentIntentRepository";

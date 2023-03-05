@@ -12,8 +12,8 @@ export class LoadUserByTokenService {
     const tokenDecrypted = this.jwtProvider.decryptToken(token, env.jwtSecret);
 
     if (tokenDecrypted) {
-      const userEmail = tokenDecrypted["id"];
-      const user = await this.usersRepository.findByEmail(userEmail);
+      const phone = tokenDecrypted["id"];
+      const user = await this.usersRepository.findByPhone(phone);
       if (user) {
         return user;
       }

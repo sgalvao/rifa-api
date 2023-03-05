@@ -32,8 +32,16 @@ export class RifaRepository {
     return rifas;
   }
 
-  async delete() {}
-  async update() {}
+  async removeNumbers(rifaId: string, removedNumbers: number[]) {
+    const rifa = await prisma.rifa.update({
+      where: { id: rifaId },
+      data: {
+        soldNumbers: removedNumbers,
+      },
+    });
+    return rifa;
+  }
+
   async finish(params) {
     const rifa = await prisma.rifa.update({
       where: { id: params.id },
@@ -52,20 +60,24 @@ export class RifaRepository {
       select: { soldNumbers: true },
     });
 
-    return Boolean(rifa.soldNumbers.find((el) => el === num));
+    if (rifa.soldNumbers) {
+      return Boolean(rifa.soldNumbers.find((el) => el === num));
+    }
+
+    return false;
   }
 
-  async addSoldNumber(params) {
+  async addSoldNumber(rifaId: string, numbers: number[]) {
     const soldNumbers = await prisma.rifa.findUnique({
-      where: { id: params.id },
+      where: { id: rifaId },
     });
 
-    const newNumbers = params.numbers.map((number) =>
-      soldNumbers.soldNumbers.push(number)
-    );
+    const newNumbers = soldNumbers.soldNumbers.concat(numbers);
+
+    console.log(newNumbers);
 
     return await prisma.rifa.update({
-      where: { id: params.id },
+      where: { id: rifaId },
       data: {
         soldNumbers: newNumbers,
       },

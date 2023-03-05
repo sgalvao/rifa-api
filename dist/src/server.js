@@ -26,6 +26,7 @@ require("./config/module-alias");
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
+process.env.TZ = "UTC";
 const routes_1 = require("@/config/routes");
 const apollo_server_1 = require("@/config/apollo-server");
 const env_1 = __importDefault(require("@/config/env"));

@@ -5,7 +5,6 @@ export class LoadRifaById {
 
   async load(id: string) {
     const rifa = await this.rifaRepository.loadById(id);
-    console.log(id);
     return rifa;
   }
 }

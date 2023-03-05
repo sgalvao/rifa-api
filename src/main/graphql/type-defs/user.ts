@@ -23,7 +23,7 @@ export default gql`
   }
 
   extend type Query {
-    login(email: String!, password: String!): UserResult
+    login(phone: String!): UserResult
     loadUser: UserResult @auth
   }
 

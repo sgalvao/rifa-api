@@ -14,7 +14,7 @@ datasource db {
 model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
   email String @unique
   phone String @unique
 }
@@ -26,6 +26,7 @@ model Rifa {
   image        String
   status       String
   authorId     String
+  createdAt DateTime @default(now())
   winnerNumber Int?
   participants Int?
   soldNumbers  Int[]
@@ -34,22 +35,18 @@ model Rifa {
 model PaymentIntent {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   numbers Int[]
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) 
   ownerId String
   rifaId String
+  status String
+  quantity Int
   transactionId String
-  ttl Int @default(600)
 }
 
-model Numbers {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  number  Int
-  ownerId String
-  rifaId  String
-}
 
 model Admin {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now()) 
   name     String
   email    String @unique
   password String

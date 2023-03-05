@@ -13,8 +13,8 @@ class LoadUserByTokenService {
     async load(token) {
         const tokenDecrypted = this.jwtProvider.decryptToken(token, env_1.default.jwtSecret);
         if (tokenDecrypted) {
-            const userEmail = tokenDecrypted["id"];
-            const user = await this.usersRepository.findByEmail(userEmail);
+            const phone = tokenDecrypted["id"];
+            const user = await this.usersRepository.findByPhone(phone);
             if (user) {
                 return user;
             }

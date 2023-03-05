@@ -6,23 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthenticationService = void 0;
 const env_1 = __importDefault(require("@/config/env"));
 class AuthenticationService {
-    constructor(hashProvider, usersRepository, jwtProvider) {
-        this.hashProvider = hashProvider;
+    constructor(usersRepository, jwtProvider) {
         this.usersRepository = usersRepository;
         this.jwtProvider = jwtProvider;
     }
     async auth(params) {
-        console.log("🚀 ~ file: authentication.ts ~ line 14 ~ AuthenticationService ~ auth ~ params", params);
-        const user = await this.usersRepository.findByEmail(params.email);
+        const user = await this.usersRepository.findByPhone(params.phone);
         if (!user) {
-            throw new Error("User not found");
+            throw new Error("Usuário não encontrado!");
         }
-        const isValidPassword = await this.hashProvider.compareHash(params.password, user.password);
-        console.log("🚀 ~ file: authentication.ts ~ line 27 ~ AuthenticationService ~ auth ~ isValidPassword", isValidPassword);
-        if (!isValidPassword) {
-            throw new Error(" password or username invalid!");
-        }
-        const token = this.jwtProvider.encryptToken(user.email, env_1.default.jwtSecret);
+        const token = this.jwtProvider.encryptToken(user.phone, env_1.default.jwtSecret);
         return Object.assign(user, { token });
     }
 }

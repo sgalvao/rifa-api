@@ -30,7 +30,6 @@ export default {
 
   Query: {
     loadRifa: async (_, { rifaId }) => {
-      console.log(rifaId);
       return makeLoadRifa().load(rifaId);
     },
     loadRifas: async () => makeLoadRifas().load(),

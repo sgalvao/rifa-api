@@ -2,15 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateAccountService = void 0;
 class CreateAccountService {
-    constructor(usersRepository, hashProvider) {
+    constructor(usersRepository) {
         this.usersRepository = usersRepository;
-        this.hashProvider = hashProvider;
     }
     async create(param) {
-        const passwordEncrypted = await this.hashProvider.createHash(param.password, 10);
+        const validateEmail = await this.usersRepository.findByEmail(param.email);
+        const validatePhone = await this.usersRepository.findByPhone(param.phone);
+        if (validatePhone) {
+            throw new Error("Telefone já cadastrado!");
+        }
+        if (validateEmail) {
+            throw new Error("Email já cadastrado!");
+        }
         return this.usersRepository.create({
             ...param,
-            password: passwordEncrypted,
         });
     }
 }
