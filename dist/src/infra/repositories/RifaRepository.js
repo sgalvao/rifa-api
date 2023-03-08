@@ -26,8 +26,15 @@ class RifaRepository {
         const rifas = await prisma_client_1.prisma.rifa.findMany();
         return rifas;
     }
-    async delete() { }
-    async update() { }
+    async removeNumbers(rifaId, removedNumbers) {
+        const rifa = await prisma_client_1.prisma.rifa.update({
+            where: { id: rifaId },
+            data: {
+                soldNumbers: removedNumbers,
+            },
+        });
+        return rifa;
+    }
     async finish(params) {
         const rifa = await prisma_client_1.prisma.rifa.update({
             where: { id: params.id },

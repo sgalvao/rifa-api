@@ -27,12 +27,12 @@ class CreatePaymentService {
             .connect()
             .payment.create({
             transaction_amount: params.quantity * rifa.price,
-            description: "E-Book Prêmios",
+            description: "E-Book Premios",
             payment_method_id: "pix",
-            installments: 0,
+            installments: 1,
             date_of_expiration: (0, date_fns_1.addMinutes)(Date.now(), 1).toISOString(),
             payer: {
-                email: "guedes@hotmail.com",
+                email: user.email,
                 first_name: user.name,
             },
         });

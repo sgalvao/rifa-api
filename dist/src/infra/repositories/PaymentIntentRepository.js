@@ -12,6 +12,7 @@ class PaymentIntentRepository {
                 transactionId: params.transactionId,
                 quantity: params.quantity,
                 numbers: params.numbers,
+                status: "pending",
             },
         });
         return reservedNumber;
@@ -21,6 +22,31 @@ class PaymentIntentRepository {
             where: { id: paymentId },
         });
         return reservedNumber;
+    }
+    async verify() {
+        const paymentStatus = await prisma_client_1.prisma.paymentIntent.findMany({
+            where: { status: "pending" },
+        });
+        return paymentStatus;
+    }
+    async updateStatus(id, status) {
+        const paymentStatus = await prisma_client_1.prisma.paymentIntent.update({
+            where: { id },
+            data: { status },
+        });
+        return paymentStatus;
+    }
+    async verifyWinner(rifaId, drawnNumber) {
+        const payment = await prisma_client_1.prisma.paymentIntent.findFirst({
+            where: {
+                AND: [
+                    { rifaId },
+                    { status: "approved" },
+                    { numbers: { hasSome: [drawnNumber] } },
+                ],
+            },
+        });
+        return payment;
     }
 }
 exports.PaymentIntentRepository = PaymentIntentRepository;

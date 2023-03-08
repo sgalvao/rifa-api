@@ -74,8 +74,6 @@ export class RifaRepository {
 
     const newNumbers = soldNumbers.soldNumbers.concat(numbers);
 
-    console.log(newNumbers);
-
     return await prisma.rifa.update({
       where: { id: rifaId },
       data: {

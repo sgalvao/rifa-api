@@ -53,10 +53,14 @@ export class CreatePaymentService {
       ownerId: params.ownerId,
       rifaId: params.rifaId,
       quantity: params.quantity,
+      copyPasteCode:
+        mercadoPago.body.point_of_interaction.transaction_data.qr_code,
+      qrCode: mercadoPago.body.point_of_interaction.transaction_data.qr_code,
+      totalValue: params.quantity * rifa.price,
+      value: rifa.price,
     });
 
     await this.rifaRepository.addSoldNumber(params.rifaId, list);
-
     return paymentIntent;
   }
 }

@@ -4,6 +4,10 @@ import { CreatePaymentService } from "@/domain/services/create-payment";
 interface CreateIntent extends CreatePaymentService.Params {
   numbers: number[];
   transactionId: string;
+  qrCode: string;
+  copyPasteCode: string;
+  value: number;
+  totalValue: number;
 }
 export class PaymentIntentRepository {
   constructor() {}
@@ -17,6 +21,10 @@ export class PaymentIntentRepository {
         quantity: params.quantity,
         numbers: params.numbers,
         status: "pending",
+        totalValue: params.totalValue,
+        qrCode: params.qrCode,
+        copyPasteCode: params.copyPasteCode,
+        value: params.value,
       },
     });
 
@@ -45,6 +53,11 @@ export class PaymentIntentRepository {
     });
 
     return paymentStatus;
+  }
+
+  async getById(id: string) {
+    const payment = await prisma.paymentIntent.findUnique({ where: { id } });
+    return payment;
   }
 
   async verifyWinner(rifaId: string, drawnNumber: number) {

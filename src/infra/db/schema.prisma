@@ -12,42 +12,45 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
   createdAt DateTime @default(now())
-  email String @unique
-  phone String @unique
+  email     String   @unique
+  phone     String   @unique
 }
 
 model Rifa {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   price        Float
   image        String
   status       String
   authorId     String
-  createdAt DateTime @default(now())
+  createdAt    DateTime @default(now())
   winnerNumber Int?
   participants Int?
   soldNumbers  Int[]
 }
 
 model PaymentIntent {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  numbers Int[]
-  createdAt DateTime @default(now()) 
-  ownerId String
-  rifaId String
-  status String
-  quantity Int
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  numbers       Int[]
+  createdAt     DateTime @default(now())
+  ownerId       String
+  rifaId        String
+  status        String
+  quantity      Int
   transactionId String
+  copyPasteCode String
+  qrCode        String
+  totalValue    Float
+  value         Float
 }
 
-
 model Admin {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now()) 
-  name     String
-  email    String @unique
-  password String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  name      String
+  email     String   @unique
+  password  String
 }

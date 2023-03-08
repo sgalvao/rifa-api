@@ -15,7 +15,6 @@ const makeCreatePayment = () => {
 exports.default = {
     Mutation: {
         createPayment: (_, args, { userId }) => {
-            console.log("🚀 ~ file: payments.ts:20 ~ userId:", args);
             return makeCreatePayment().create({ ...args, ownerId: userId });
         },
     },

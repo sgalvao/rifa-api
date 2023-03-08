@@ -7,7 +7,6 @@ class LoadRifaById {
     }
     async load(id) {
         const rifa = await this.rifaRepository.loadById(id);
-        console.log(id);
         return rifa;
     }
 }

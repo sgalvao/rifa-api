@@ -23,7 +23,6 @@ const makeLoadRifas = () => {
 export default {
   Mutation: {
     createRifa: async (_, args) => {
-      console.log(args);
       return makeCreateRifa().create({ ...args });
     },
   },

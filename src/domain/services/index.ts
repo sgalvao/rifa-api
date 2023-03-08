@@ -7,3 +7,4 @@ export * from "@/domain/services/load-rifas";
 export * from "@/domain/services/load-rifa-by-id";
 export * from "@/domain/services/create-payment";
 export * from "@/domain/services/verify-payment-status-service";
+export * from "@/domain/services/load-payment-by-id";
