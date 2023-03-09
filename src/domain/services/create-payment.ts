@@ -40,7 +40,7 @@ export class CreatePaymentService {
         description: "E-Book Premios",
         payment_method_id: "pix",
         installments: 1,
-        date_of_expiration: addMinutes(Date.now(), 1).toISOString(),
+        date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
         payer: {
           email: user.email,
           first_name: user.name,

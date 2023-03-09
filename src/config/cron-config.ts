@@ -1,7 +1,7 @@
 import { VerifyPaymentStatusService } from "@/domain/services";
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago";
 import { PaymentIntentRepository, RifaRepository } from "@/infra/repositories";
-import cron from "cron";
+import { CronJob } from "cron";
 const makePaymentVerifyStatus = () => {
   const rifaRepository = new RifaRepository();
   const paymentIntentRepository = new PaymentIntentRepository();
@@ -16,5 +16,8 @@ const makePaymentVerifyStatus = () => {
 };
 
 export const cronProvider = () => {
-  const job = new cron("*/5 * * * *", makePaymentVerifyStatus().verify());
+  console.log("Verificando Status");
+  const job = new CronJob("*/5 * * * *", makePaymentVerifyStatus().verify());
+
+  return job;
 };

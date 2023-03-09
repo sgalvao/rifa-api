@@ -12,7 +12,7 @@ export class VerifyPaymentStatusService {
     const paymentIntent = await this.paymentIntentRepository.verify();
     const mercadoPago = this.mercadoPagoProvider.connect();
 
-    // if (!paymentIntent) return;
+    if (!paymentIntent) return;
 
     for (let i = 0; i < paymentIntent.length; i++) {
       const result = await mercadoPago.payment.get(
@@ -24,6 +24,7 @@ export class VerifyPaymentStatusService {
       );
 
       if (result.body.status === "pending" && isExpired) {
+        console.log("expirou");
         const soldNumbers = await this.rifaRepository.loadById(
           paymentIntent[i].rifaId
         );
@@ -42,6 +43,7 @@ export class VerifyPaymentStatusService {
       }
 
       if (result.body.status === "approved") {
+        console.log("approved");
         return this.paymentIntentRepository.updateStatus(
           paymentIntent[i].id,
           "approved"

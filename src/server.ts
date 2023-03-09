@@ -7,10 +7,12 @@ process.env.TZ = "UTC";
 import { setupRoutes } from "@/config/routes";
 import { startApolloServer } from "@/config/apollo-server";
 import env from "@/config/env";
+import { cronProvider } from "./config/cron-config";
 
 const app = express();
 startApolloServer(app);
 setupRoutes(app);
+cronProvider();
 
 app.listen(env.port, () =>
   console.log(`Server running at: http://localhost:${env.port}`)
