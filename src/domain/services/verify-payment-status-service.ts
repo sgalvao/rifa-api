@@ -36,7 +36,7 @@ export class VerifyPaymentStatusService {
           removedNumbers
         );
 
-        return this.paymentIntentRepository.updateStatus(
+        this.paymentIntentRepository.updateStatus(
           paymentIntent[i].id,
           "expired"
         );
@@ -44,7 +44,7 @@ export class VerifyPaymentStatusService {
 
       if (result.body.status === "approved") {
         console.log("approved");
-        return this.paymentIntentRepository.updateStatus(
+        this.paymentIntentRepository.updateStatus(
           paymentIntent[i].id,
           "approved"
         );

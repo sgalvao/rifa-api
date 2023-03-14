@@ -10,6 +10,7 @@ export default gql`
     status: String
     winnerNumber: Int
     soldNumbers: [Int]
+    image: String
   }
 
   input RifaInput {
