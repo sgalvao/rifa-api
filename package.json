@@ -11,7 +11,7 @@
     "lint": "eslint src/** --ext .ts --max-warnings=0",
     "lint:fix": "eslint src/** --ext .ts --fix",
     "postinstall": "yarn build",
-    "vercel-build": "npx prisma migrate"
+    "vercel-build": "npx prisma generate"
   },
   "devDependencies": {
     "@types/module-alias": "^2.0.1",
