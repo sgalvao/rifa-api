@@ -19,6 +19,10 @@ export class CreatePaymentService {
     const rifa = await this.rifaRepository.loadById(params.rifaId);
     const user = await this.userRepository.findById(params.ownerId);
 
+    if (rifa.isFinished) {
+      throw new Error("Ação ja foi finalizada!");
+    }
+
     for (let i = 0; i < params.quantity; i++) {
       const number = Math.floor(Math.random() * 99999) + 1;
       const isSold = await this.rifaRepository.verifyNumber(
@@ -70,6 +74,10 @@ export namespace CreatePaymentService {
     ownerId: string;
     quantity: number;
     rifaId: string;
+    qrCode: string;
+    copyPasteCode: string;
+    totalValue: number;
+    value: number;
   };
 
   export type Result = PaymentIntent;

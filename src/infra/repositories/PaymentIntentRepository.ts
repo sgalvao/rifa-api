@@ -72,4 +72,14 @@ export class PaymentIntentRepository {
     });
     return payment;
   }
+
+  async loadByOwnerId(ownerId: string) {
+    const payment = await prisma.paymentIntent.findMany({
+      where: {
+        AND: [{ ownerId }, { status: "approved" }],
+      },
+    });
+
+    return payment;
+  }
 }

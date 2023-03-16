@@ -14,11 +14,21 @@ export default gql`
     createdAt: DateTime
   }
 
+  type Purchased {
+    numbers: [Int]
+    rifaId: String
+    image: String
+    name: String
+    status: String
+
+  }
+
   extend type Mutation {
     createPayment(quantity: Int!, rifaId: String!): Payment @auth
   }
 
   extend type Query {
     loadPaymentById(id: String): Payment @auth
+    loadPurchasedNumbers: [Purchased] @auth
   }
 `;

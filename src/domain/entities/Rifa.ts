@@ -6,4 +6,5 @@ export type Rifa = {
   participants: number;
   soldNumbers: number[];
   winnerNumber: number;
+  isFinished: boolean;
 };

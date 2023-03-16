@@ -25,9 +25,11 @@ model Rifa {
   price        Float
   image        String
   status       String
+  isFinished   Boolean @default(false)
   authorId     String
   createdAt    DateTime @default(now())
   winnerNumber Int?
+  winnerName String?
   participants Int?
   soldNumbers  Int[]
 }
