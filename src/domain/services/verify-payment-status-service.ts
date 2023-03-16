@@ -31,12 +31,12 @@ export class VerifyPaymentStatusService {
         const removedNumbers = soldNumbers.soldNumbers.filter(
           (num) => !paymentIntent[i].numbers.includes(num)
         );
-        this.rifaRepository.removeNumbers(
+        await this.rifaRepository.removeNumbers(
           paymentIntent[i].rifaId,
           removedNumbers
         );
 
-        this.paymentIntentRepository.updateStatus(
+        await this.paymentIntentRepository.updateStatus(
           paymentIntent[i].id,
           "expired"
         );
@@ -44,7 +44,7 @@ export class VerifyPaymentStatusService {
 
       if (result.body.status === "approved") {
         console.log("approved");
-        this.paymentIntentRepository.updateStatus(
+        await this.paymentIntentRepository.updateStatus(
           paymentIntent[i].id,
           "approved"
         );

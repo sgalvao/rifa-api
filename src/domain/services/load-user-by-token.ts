@@ -9,7 +9,10 @@ export class LoadUserByTokenService {
   ) {}
 
   async load(token: string) {
-    const tokenDecrypted = this.jwtProvider.decryptToken(token, env.jwtSecret);
+    const tokenDecrypted = await this.jwtProvider.decryptToken(
+      token,
+      env.jwtSecret
+    );
 
     if (tokenDecrypted) {
       const phone = tokenDecrypted["id"];
