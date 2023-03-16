@@ -13,6 +13,7 @@ export class PaymentIntentRepository {
   constructor() {}
 
   async create(params: CreateIntent) {
+    console.time("Create payment");
     const reservedNumber = await prisma.paymentIntent.create({
       data: {
         ownerId: params.ownerId,
@@ -28,6 +29,8 @@ export class PaymentIntentRepository {
       },
     });
 
+    console.timeEnd("Create payment");
+
     return reservedNumber;
   }
 
@@ -39,9 +42,12 @@ export class PaymentIntentRepository {
   }
 
   async verify() {
+    console.time("EXECUCAO VERIFY");
     const paymentStatus = await prisma.paymentIntent.findMany({
       where: { status: "pending" },
     });
+
+    console.timeEnd("EXECUCAO VERIFY");
 
     return paymentStatus;
   }
