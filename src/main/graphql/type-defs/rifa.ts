@@ -9,8 +9,11 @@ export default gql`
     participants: Int
     status: String
     winnerNumber: Int
+    winnerName: String
     soldNumbers: [Int]
     image: String
+    isFinished: boolean
+    
   }
 
   input RifaInput {
@@ -33,5 +36,6 @@ export default gql`
   extend type Query {
     loadRifas: [Rifa]
     loadRifa(rifaId: String!): Rifa
+    checkWinner:(rifaId: String! drawnNumber: Int!): Rifa @auth
   }
 `;

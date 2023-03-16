@@ -1,5 +1,6 @@
 import { CreateRifaService } from "@/domain/services/create-rifa-service";
 import { prisma } from "@/config/prisma-client";
+import { CheckWinnerService } from "@/domain/services/check-winner";
 
 export class RifaRepository {
   constructor() {}
@@ -42,12 +43,15 @@ export class RifaRepository {
     return rifa;
   }
 
-  async finish(params) {
+  async finish(params: CheckWinnerService.Params) {
     const rifa = await prisma.rifa.update({
-      where: { id: params.id },
+      where: { id: params.rifaId },
       data: {
         status: "CLOSED",
-        winnerNumber: params.winnerNumber,
+        winnerNumber: params.drawnNumber,
+        isFinished: true,
+        winnerName: params.winnerName,
+        winnerId: params.winnerId,
       },
     });
 

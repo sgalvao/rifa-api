@@ -17,7 +17,7 @@ const makePaymentVerifyStatus = () => {
 
 export const cronProvider = () => {
   console.log("Verificando Status");
-  const job = new CronJob("*/5 * * * *", makePaymentVerifyStatus().verify());
+  const job = new CronJob("*/2 * * * *", makePaymentVerifyStatus().verify());
 
   return job;
 };

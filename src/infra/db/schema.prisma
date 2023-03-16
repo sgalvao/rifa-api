@@ -30,8 +30,21 @@ model Rifa {
   createdAt    DateTime @default(now())
   winnerNumber Int?
   winnerName String?
+  winnerId String?
   participants Int?
   soldNumbers  Int[]
+}
+
+
+model Winners {
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+    winnerName  String
+    winnerId   String
+    winnerNumber Int
+    rifaName String
+    rifaImage String
+    rifaId String
+    createdAt DateTime @default(now())
 }
 
 model PaymentIntent {
