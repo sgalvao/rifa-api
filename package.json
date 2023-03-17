@@ -10,8 +10,7 @@
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint src/** --ext .ts --max-warnings=0",
     "lint:fix": "eslint src/** --ext .ts --fix",
-    "postinstall": "yarn build",
-    "vercel-build": "npx prisma generate"
+    "postinstall": "yarn build"
   },
   "devDependencies": {
     "@types/module-alias": "^2.0.1",
