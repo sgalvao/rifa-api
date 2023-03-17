@@ -26,15 +26,14 @@ export class CreatePaymentService {
 
     for (let i = 0; i < params.quantity; i++) {
       const number = Math.floor(Math.random() * 99999) + 1;
-      const isSold = await this.rifaRepository.verifyNumber(
-        number,
-        params.rifaId
+      const isSold = Boolean(
+        rifa.soldNumbers.includes(number) || list.includes(number)
       );
 
-      if (!isSold) {
-        list.push(number);
-      } else {
+      if (isSold) {
         i--;
+      } else {
+        list.push(number);
       }
     }
 
