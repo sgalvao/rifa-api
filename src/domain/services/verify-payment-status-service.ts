@@ -28,7 +28,6 @@ export class VerifyPaymentStatusService {
       );
 
       if (result.body.status === "pending" && isExpired) {
-        console.log("expirou");
         const soldNumbers = await this.rifaRepository.loadById(
           paymentIntent[i].rifaId
         );
