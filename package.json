@@ -13,6 +13,9 @@
     "postinstall": "yarn build",
     "vercel-build": "npx prisma generate"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "devDependencies": {
     "@types/module-alias": "^2.0.1",
     "@types/node": "^16.11.9",
