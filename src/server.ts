@@ -14,6 +14,6 @@ startApolloServer(app);
 setupRoutes(app);
 cronProvider();
 
-app.listen(3000, () =>
+app.listen(9000, () =>
   console.log(`Server running at: http://localhost:${env.port}`)
 );
