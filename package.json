@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/src/server.js",
     "dev": "nodemon",
-    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "build": "npx prisma generate && rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint src/** --ext .ts --max-warnings=0",
     "lint:fix": "eslint src/** --ext .ts --fix",
     "postinstall": "yarn build"
