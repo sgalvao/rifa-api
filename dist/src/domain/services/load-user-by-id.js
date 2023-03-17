@@ -6,7 +6,7 @@ class LoadUserByIdService {
         this.usersRepository = usersRepository;
     }
     async load(id) {
-        const user = this.usersRepository.findById(id);
+        const user = await this.usersRepository.findById(id);
         return user;
     }
 }

@@ -13,6 +13,9 @@ class CreatePaymentService {
         const list = [];
         const rifa = await this.rifaRepository.loadById(params.rifaId);
         const user = await this.userRepository.findById(params.ownerId);
+        if (rifa.isFinished) {
+            throw new Error("Ação ja foi finalizada!");
+        }
         for (let i = 0; i < params.quantity; i++) {
             const number = Math.floor(Math.random() * 99999) + 1;
             const isSold = await this.rifaRepository.verifyNumber(number, params.rifaId);
@@ -30,7 +33,7 @@ class CreatePaymentService {
             description: "E-Book Premios",
             payment_method_id: "pix",
             installments: 1,
-            date_of_expiration: (0, date_fns_1.addMinutes)(Date.now(), 1).toISOString(),
+            date_of_expiration: (0, date_fns_1.addMinutes)(Date.now(), 10).toISOString(),
             payer: {
                 email: user.email,
                 first_name: user.name,
@@ -42,6 +45,10 @@ class CreatePaymentService {
             ownerId: params.ownerId,
             rifaId: params.rifaId,
             quantity: params.quantity,
+            copyPasteCode: mercadoPago.body.point_of_interaction.transaction_data.qr_code,
+            qrCode: mercadoPago.body.point_of_interaction.transaction_data.qr_code,
+            totalValue: params.quantity * rifa.price,
+            value: rifa.price,
         });
         await this.rifaRepository.addSoldNumber(params.rifaId, list);
         return paymentIntent;

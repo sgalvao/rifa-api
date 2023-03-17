@@ -1,0 +1,1 @@
+{"version":3,"file":"load-winners-service.js","sourceRoot":"","sources":["../../../../src/domain/services/load-winners-service.ts"],"names":[],"mappings":";;;AAEA,MAAa,WAAW;IACtB,YAA6B,iBAAoC;QAApC,sBAAiB,GAAjB,iBAAiB,CAAmB;IAAG,CAAC;IAErE,KAAK,CAAC,IAAI;QACR,MAAM,OAAO,GAAG,MAAM,IAAI,CAAC,iBAAiB,CAAC,WAAW,EAAE,CAAC;QAE3D,OAAO,OAAO,CAAC;IACjB,CAAC;CACF;AARD,kCAQC"}

@@ -11,7 +11,7 @@ class LoadUserByTokenService {
         this.jwtProvider = jwtProvider;
     }
     async load(token) {
-        const tokenDecrypted = this.jwtProvider.decryptToken(token, env_1.default.jwtSecret);
+        const tokenDecrypted = await this.jwtProvider.decryptToken(token, env_1.default.jwtSecret);
         if (tokenDecrypted) {
             const phone = tokenDecrypted["id"];
             const user = await this.usersRepository.findByPhone(phone);

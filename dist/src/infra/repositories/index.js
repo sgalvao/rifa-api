@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("@/infra/repositories/UserRepository"), exports);
 __exportStar(require("@/infra/repositories/RifaRepository"), exports);
 __exportStar(require("@/infra/repositories/PaymentIntentRepository"), exports);
+__exportStar(require("@/infra/repositories/WinnersRepository"), exports);
 //# sourceMappingURL=index.js.map

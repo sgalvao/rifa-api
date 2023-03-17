@@ -10,18 +10,27 @@ class VerifyPaymentStatusService {
     async verify() {
         const paymentIntent = await this.paymentIntentRepository.verify();
         const mercadoPago = this.mercadoPagoProvider.connect();
-        // if (!paymentIntent) return;
+        if (!paymentIntent)
+            return;
+        let result;
         for (let i = 0; i < paymentIntent.length; i++) {
-            const result = await mercadoPago.payment.get(parseInt(paymentIntent[i].transactionId));
+            try {
+                result = await mercadoPago.payment.get(parseInt(paymentIntent[i].transactionId));
+            }
+            catch (e) {
+                console.log(e);
+            }
             const isExpired = Boolean(new Date(result.body.date_of_expiration) < new Date());
             if (result.body.status === "pending" && isExpired) {
+                console.log("expirou");
                 const soldNumbers = await this.rifaRepository.loadById(paymentIntent[i].rifaId);
                 const removedNumbers = soldNumbers.soldNumbers.filter((num) => !paymentIntent[i].numbers.includes(num));
-                this.rifaRepository.removeNumbers(paymentIntent[i].rifaId, removedNumbers);
-                return this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "expired");
+                await this.rifaRepository.removeNumbers(paymentIntent[i].rifaId, removedNumbers);
+                await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "expired");
             }
             if (result.body.status === "approved") {
-                return this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved");
+                console.log("approved");
+                await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved");
             }
         }
     }

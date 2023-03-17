@@ -30,8 +30,10 @@ process.env.TZ = "UTC";
 const routes_1 = require("@/config/routes");
 const apollo_server_1 = require("@/config/apollo-server");
 const env_1 = __importDefault(require("@/config/env"));
+const cron_config_1 = require("./config/cron-config");
 const app = (0, express_1.default)();
 (0, apollo_server_1.startApolloServer)(app);
 (0, routes_1.setupRoutes)(app);
-app.listen(env_1.default.port, () => console.log(`Server running at: http://localhost:${env_1.default.port}`));
+(0, cron_config_1.cronProvider)();
+app.listen(3000, () => console.log(`Server running at: http://localhost:${env_1.default.port}`));
 //# sourceMappingURL=server.js.map

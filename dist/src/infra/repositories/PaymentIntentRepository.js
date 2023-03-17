@@ -5,6 +5,7 @@ const prisma_client_1 = require("@/config/prisma-client");
 class PaymentIntentRepository {
     constructor() { }
     async create(params) {
+        console.time("Create payment");
         const reservedNumber = await prisma_client_1.prisma.paymentIntent.create({
             data: {
                 ownerId: params.ownerId,
@@ -13,8 +14,13 @@ class PaymentIntentRepository {
                 quantity: params.quantity,
                 numbers: params.numbers,
                 status: "pending",
+                totalValue: params.totalValue,
+                qrCode: params.qrCode,
+                copyPasteCode: params.copyPasteCode,
+                value: params.value,
             },
         });
+        console.timeEnd("Create payment");
         return reservedNumber;
     }
     async remove(paymentId) {
@@ -24,9 +30,11 @@ class PaymentIntentRepository {
         return reservedNumber;
     }
     async verify() {
+        console.time("EXECUCAO VERIFY");
         const paymentStatus = await prisma_client_1.prisma.paymentIntent.findMany({
             where: { status: "pending" },
         });
+        console.timeEnd("EXECUCAO VERIFY");
         return paymentStatus;
     }
     async updateStatus(id, status) {
@@ -36,6 +44,10 @@ class PaymentIntentRepository {
         });
         return paymentStatus;
     }
+    async getById(id) {
+        const payment = await prisma_client_1.prisma.paymentIntent.findUnique({ where: { id } });
+        return payment;
+    }
     async verifyWinner(rifaId, drawnNumber) {
         const payment = await prisma_client_1.prisma.paymentIntent.findFirst({
             where: {
@@ -44,6 +56,14 @@ class PaymentIntentRepository {
                     { status: "approved" },
                     { numbers: { hasSome: [drawnNumber] } },
                 ],
+            },
+        });
+        return payment;
+    }
+    async loadByOwnerId(ownerId) {
+        const payment = await prisma_client_1.prisma.paymentIntent.findMany({
+            where: {
+                AND: [{ ownerId }, { status: "approved" }],
             },
         });
         return payment;

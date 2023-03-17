@@ -10,7 +10,10 @@ exports.default = (0, apollo_server_express_1.gql) `
     participants: Int
     status: String
     winnerNumber: Int
+    winnerName: String
     soldNumbers: [Int]
+    image: String
+    isFinished: Boolean
   }
 
   input RifaInput {
@@ -33,6 +36,7 @@ exports.default = (0, apollo_server_express_1.gql) `
   extend type Query {
     loadRifas: [Rifa]
     loadRifa(rifaId: String!): Rifa
+    checkWinner(rifaId: String!, drawnNumber: Int!): Rifa @auth
   }
 `;
 //# sourceMappingURL=rifa.js.map

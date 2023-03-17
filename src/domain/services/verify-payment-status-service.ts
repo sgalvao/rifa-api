@@ -13,11 +13,15 @@ export class VerifyPaymentStatusService {
     const mercadoPago = this.mercadoPagoProvider.connect();
 
     if (!paymentIntent) return;
-
+    let result;
     for (let i = 0; i < paymentIntent.length; i++) {
-      const result = await mercadoPago.payment.get(
-        parseInt(paymentIntent[i].transactionId)
-      );
+      try {
+        result = await mercadoPago.payment.get(
+          parseInt(paymentIntent[i].transactionId)
+        );
+      } catch (e) {
+        console.log(e);
+      }
 
       const isExpired = Boolean(
         new Date(result.body.date_of_expiration) < new Date()

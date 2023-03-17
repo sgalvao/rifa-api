@@ -37,10 +37,13 @@ class RifaRepository {
     }
     async finish(params) {
         const rifa = await prisma_client_1.prisma.rifa.update({
-            where: { id: params.id },
+            where: { id: params.rifaId },
             data: {
                 status: "CLOSED",
-                winnerNumber: params.winnerNumber,
+                winnerNumber: params.drawnNumber,
+                isFinished: true,
+                winnerName: params.winnerName,
+                winnerId: params.winnerId,
             },
         });
         return rifa;
@@ -60,7 +63,6 @@ class RifaRepository {
             where: { id: rifaId },
         });
         const newNumbers = soldNumbers.soldNumbers.concat(numbers);
-        console.log(newNumbers);
         return await prisma_client_1.prisma.rifa.update({
             where: { id: rifaId },
             data: {
