@@ -11,7 +11,6 @@ import { cronProvider } from "./config/cron-config";
 const app = express();
 startApolloServer(app);
 setupRoutes(app);
-cronProvider();
 
 const port = process.env.PORT || 9000;
 
