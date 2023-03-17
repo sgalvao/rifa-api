@@ -15,6 +15,7 @@ export class CreatePaymentService {
     params: CreatePaymentService.Params
   ): Promise<CreatePaymentService.Result> {
     const list = [];
+    console.time("create payment service");
 
     const rifa = await this.rifaRepository.loadById(params.rifaId);
     const user = await this.userRepository.findById(params.ownerId);
@@ -65,6 +66,8 @@ export class CreatePaymentService {
     });
 
     await this.rifaRepository.addSoldNumber(params.rifaId, list);
+    console.timeEnd("create payment service");
+
     return paymentIntent;
   }
 }
