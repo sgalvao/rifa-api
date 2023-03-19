@@ -60,8 +60,13 @@ export class RifaRepository {
 
   async verifyNumber(num: number, id: string) {
     const rifa = await prisma.rifa.findFirst({
-      where: { id },
-      select: { soldNumbers: true },
+      where: {
+        AND: [
+          { id },
+          { status: "approved" },
+          { soldNumbers: { hasSome: [num] } },
+        ],
+      },
     });
 
     if (rifa.soldNumbers) {
