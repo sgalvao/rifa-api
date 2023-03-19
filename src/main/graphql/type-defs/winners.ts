@@ -4,6 +4,7 @@ export default gql`
   type Winner {
     rifaId: String
     rifaImage: String
+    rifaName: String
     winnerId: String
     winnerName: String
     winnerNumber: Int
