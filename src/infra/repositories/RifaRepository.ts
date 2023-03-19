@@ -29,7 +29,9 @@ export class RifaRepository {
   }
 
   async loadAll(): Promise<CreateRifaService.Result[]> {
-    const rifas = await prisma.rifa.findMany();
+    const rifas = await prisma.rifa.findMany({
+      orderBy: { createdAt: "desc" },
+    });
     return rifas;
   }
 
@@ -52,6 +54,7 @@ export class RifaRepository {
         isFinished: true,
         winnerName: params.winnerName,
         winnerId: params.winnerId,
+        finishedDate: new Date(Date.now()),
       },
     });
 
@@ -63,7 +66,7 @@ export class RifaRepository {
       where: {
         AND: [
           { id },
-          { status: "approved" },
+          { isFinished: false },
           { soldNumbers: { hasSome: [num] } },
         ],
       },

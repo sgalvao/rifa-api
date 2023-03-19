@@ -14,7 +14,6 @@ export class WinnersRepository {
         winnerNumber: params.winnerNumber,
       },
     });
-
     return winner;
   }
 

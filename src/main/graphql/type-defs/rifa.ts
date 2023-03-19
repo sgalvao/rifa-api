@@ -13,6 +13,7 @@ export default gql`
     soldNumbers: [Int]
     image: String
     isFinished: Boolean
+    finishedDate: DateTime
   }
 
   input RifaInput {
@@ -20,6 +21,17 @@ export default gql`
     price: Float!
     authorId: String!
     status: String
+  }
+
+  type WinnerResult {
+    id: String
+    winnerName: String
+    winnerId: String
+    winnerNumber: Int
+    rifaName: String
+    rifaImage: String
+    rifaId: String
+    createdAt: DateTime
   }
 
   extend type Mutation {
@@ -35,6 +47,6 @@ export default gql`
   extend type Query {
     loadRifas: [Rifa]
     loadRifa(rifaId: String!): Rifa
-    checkWinner(rifaId: String!, drawnNumber: Int!): Rifa @auth
+    checkWinner(rifaId: String!, drawnNumber: Int!): WinnerResult @auth
   }
 `;

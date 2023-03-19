@@ -33,6 +33,7 @@ model Rifa {
   winnerId String?
   participants Int?
   soldNumbers  Int[]
+  finishedDate DateTime?
 }
 
 
