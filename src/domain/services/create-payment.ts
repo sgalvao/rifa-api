@@ -43,7 +43,7 @@ export class CreatePaymentService {
         transaction_amount: params.quantity * rifa.price,
         description: "E-Book Premios",
         payment_method_id: "pix",
-        installments: 1,
+        installments: 0,
         date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
         payer: {
           email: user.email,
