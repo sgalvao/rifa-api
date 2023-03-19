@@ -10,7 +10,7 @@ export default gql`
 
   input UserInput {
     name: String!
-    email: String
+    email: String!
     phone: String!
   }
 
