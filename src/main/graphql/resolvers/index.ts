@@ -1,4 +1,5 @@
 import userResolver from "./user";
-import paymentResolver from "./payments"
+import paymentResolver from "./payments";
 import rifaResolver from "./rifa";
-export default [userResolver, rifaResolver, paymentResolver];
+import winnersResolver from "./winners";
+export default [userResolver, rifaResolver, paymentResolver, winnersResolver];
