@@ -18,6 +18,7 @@ export namespace CreateRifaService {
     price: number;
     authorId: string;
     image: string;
+    description: string;
   };
 
   export type Result = Rifa;

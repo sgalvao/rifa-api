@@ -14,6 +14,7 @@ export default gql`
     image: String
     isFinished: Boolean
     finishedDate: DateTime
+    description: String
   }
 
   input RifaInput {
@@ -41,6 +42,7 @@ export default gql`
       authorId: String!
       status: String
       image: String!
+      description: String!
     ): Rifa
   }
 

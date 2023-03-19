@@ -17,6 +17,7 @@ export class RifaRepository {
         status: "OPEN",
         winnerNumber: null,
         participants: 0,
+        description: params.description,
       },
     });
 
