@@ -48,7 +48,6 @@ export class CreatePaymentService {
         payer: {
           email: user.email,
           first_name: user.name,
-          type: "registered",
         },
       });
 
