@@ -18,7 +18,9 @@ export class WinnersRepository {
   }
 
   async loadWinners() {
-    const winners = await prisma.winners.findMany();
+    const winners = await prisma.winners.findMany({
+      orderBy: { createdAt: "desc" },
+    });
 
     return winners;
   }
