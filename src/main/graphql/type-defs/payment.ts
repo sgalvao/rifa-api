@@ -12,6 +12,7 @@ export default gql`
     totalValue: Float
     value: Float
     createdAt: DateTime
+    status: String
   }
 
   type Purchased {
@@ -20,7 +21,6 @@ export default gql`
     image: String
     name: String
     status: String
-
   }
 
   extend type Mutation {
