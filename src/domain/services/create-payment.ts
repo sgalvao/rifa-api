@@ -45,7 +45,7 @@ export class CreatePaymentService {
         payment_method_id: "pix",
         installments: 0,
 
-        date_of_expiration: addMinutes(Date.now(), 15).toISOString(),
+        date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
         payer: {
           email: user.email || "gamesmegapixel@gmail.com",
           first_name: user.name,
