@@ -10,6 +10,7 @@
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint src/** --ext .ts --max-warnings=0",
     "lint:fix": "eslint src/** --ext .ts --fix",
+    "format": "npx prettier src --write && npx eslint src --fix",
     "postinstall": "yarn build"
   },
   "devDependencies": {
@@ -17,18 +18,22 @@
     "@types/bcrypt": "^5.0.0",
     "@types/mercadopago": "^1.5.8",
     "@types/module-alias": "^2.0.1",
-    "@types/node": "^16.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^2.0.15",
-    "prettier": "^2.4.1",
+    "prettier": "^2.8.7",
     "prisma": "^4.12.0-dev.10",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "typescript": "*"
   },
   "prisma": {
     "schema": "src/infra/db/schema.prisma"
@@ -38,6 +43,7 @@
     "@graphql-tools/schema": "^8.3.1",
     "@graphql-tools/utils": "^8.5.3",
     "@prisma/client": "^4.12.0-dev.10",
+    "@types/jsonwebtoken": "^9.0.1",
     "apollo-server-express": "^3.5.0",
     "axios": "^1.3.4",
     "bcrypt": "^5.0.1",

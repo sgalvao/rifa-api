@@ -1,15 +1,15 @@
-import { gql } from 'apollo-server-express'
+import { gql } from "apollo-server-express"
 
 export default gql`
-  scalar DateTime
+	scalar DateTime
 
-  directive @auth on FIELD_DEFINITION
+	directive @auth on FIELD_DEFINITION
 
-  type Query {
-    _: String
-  }
+	type Query {
+		_: String
+	}
 
-  type Mutation {
-    _: String
-  }
+	type Mutation {
+		_: String
+	}
 `

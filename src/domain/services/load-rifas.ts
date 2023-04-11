@@ -1,11 +1,11 @@
-import { RifaRepository } from "@/infra/repositories";
+import { RifaRepository } from "@/infra/repositories"
 
 export class LoadRifas {
-  constructor(private readonly rifaRepository: RifaRepository) {}
+	constructor(private readonly rifaRepository: RifaRepository) {}
 
-  async load() {
-    const rifas = await this.rifaRepository.loadAll();
+	async load() {
+		const rifas = await this.rifaRepository.loadAll()
 
-    return rifas;
-  }
+		return rifas
+	}
 }

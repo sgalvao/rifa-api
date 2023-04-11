@@ -1,30 +1,29 @@
-import { User } from "@/domain/entities/User";
-import { UsersRepository } from "@/infra/repositories/UserRepository";
+import { User } from "@/domain/entities/User"
+import { UsersRepository } from "@/infra/repositories/UserRepository"
 
 export class CreateAccountService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+	constructor(private readonly usersRepository: UsersRepository) {}
 
-  public async create(
-    param: CreateAccountService.Params
-  ): Promise<CreateAccountService.Result> {
-    const validatePhone = await this.usersRepository.findByPhone(param.phone);
+	public async create(param: CreateAccountService.Params): Promise<CreateAccountService.Result> {
+		const validatePhone = await this.usersRepository.findByPhone(param.phone)
 
-    if (validatePhone) {
-      throw new Error("Telefone já cadastrado!");
-    }
+		if (validatePhone) {
+			throw new Error("Telefone já cadastrado!")
+		}
 
-    return this.usersRepository.create({
-      ...param,
-    });
-  }
+		return this.usersRepository.create({
+			...param,
+		})
+	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CreateAccountService {
-  export type Params = {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-  };
-  export type Result = User;
+	export type Params = {
+		id: string
+		name: string
+		email: string
+		phone: string
+	}
+	export type Result = User
 }
