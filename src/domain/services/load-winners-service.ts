@@ -1,11 +1,11 @@
-import { WinnersRepository } from "@/infra/repositories";
+import { WinnersRepository } from "@/infra/repositories"
 
 export class LoadWinners {
-  constructor(private readonly winnersRepository: WinnersRepository) {}
+	constructor(private readonly winnersRepository: WinnersRepository) {}
 
-  async load() {
-    const winners = await this.winnersRepository.loadWinners();
+	async load() {
+		const winners = await this.winnersRepository.loadWinners()
 
-    return winners;
-  }
+		return winners
+	}
 }
