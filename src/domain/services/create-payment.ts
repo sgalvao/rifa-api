@@ -34,7 +34,7 @@ export class CreatePaymentService {
 		}
 
 		const mercadoPago = await this.mercadoPagoProvider.connect().payment.create({
-			transaction_amount: params.quantity * rifa.price,
+			transaction_amount: Math.ceil(params.quantity * rifa.price),
 			description: "E-Book Premios",
 			payment_method_id: "pix",
 			installments: 0,
