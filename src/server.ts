@@ -6,9 +6,9 @@ process.env.TZ = "UTC";
 
 import { setupRoutes } from "@/config/routes";
 import { startApolloServer } from "@/config/apollo-server";
-import { cronProvider } from "./config/cron-config";
 
 const app = express();
+app.use(express.json());
 startApolloServer(app);
 setupRoutes(app);
 

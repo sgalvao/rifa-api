@@ -1,9 +1,10 @@
-import { gql } from 'apollo-server-express'
+import { gql } from "apollo-server-express";
 
 export default gql`
   scalar DateTime
 
   directive @auth on FIELD_DEFINITION
+  directive @admin on FIELD_DEFINITION
 
   type Query {
     _: String
@@ -12,4 +13,4 @@ export default gql`
   type Mutation {
     _: String
   }
-`
+`;

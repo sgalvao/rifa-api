@@ -43,3 +43,32 @@ export const authDirective = (schema, directiveName) => {
     },
   });
 };
+
+export const adminDirective = (schema, directiveName) => {
+  return mapSchema(schema, {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+      const adminDirective = getDirective(
+        schema,
+        fieldConfig,
+        directiveName
+      )?.[0];
+      if (adminDirective) {
+        const { resolve = defaultFieldResolver } = fieldConfig;
+        fieldConfig.resolve = async function (source, args, context, info) {
+          const accessToken = context?.req?.headers?.["authorization"];
+          const user = await makeLoadUserToken().load(accessToken);
+          if (!user) {
+            throw new ForbiddenError("Not authorized");
+          }
+          return resolve(
+            source,
+            args,
+            Object.assign(context, { userId: user.id }),
+            info
+          );
+        };
+        return fieldConfig;
+      }
+    },
+  });
+};
