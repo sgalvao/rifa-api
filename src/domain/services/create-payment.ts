@@ -33,24 +33,19 @@ export class CreatePaymentService {
 			}
 		}
 
-		console.log()
-
-		const mercadoPago = await this.mercadoPagoProvider.connect().payment.create({
-			transaction_amount: Number((params.quantity * rifa.price).toFixed(2)),
+		const amount = Number((params.quantity * rifa.price).toFixed(2))
+		const mercadoPago = await this.mercadoPagoProvider.sdk.payment.create({
+			transaction_amount: amount,
 			description: "E-Book Premios",
 			payment_method_id: "pix",
 			installments: 0,
-
+			application_fee: Number((amount * 0.2).toFixed(2)),
 			date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
 			payer: {
 				email: user.email || "gamesmegapixel@gmail.com",
 				first_name: user.name,
 			},
 		})
-		console.log(
-			"🚀 ~ file: create-payment.ts:53 ~ CreatePaymentService ~  params.quantity * rifa.price:",
-			params.quantity * rifa.price
-		)
 		console.log("🚀 ~ file: create-payment.ts:53 ~ CreatePaymentService ~ mercadoPago:", mercadoPago)
 
 		const paymentIntent = await this.paymentIntentRepository.create({
