@@ -24,6 +24,11 @@ export default gql`
 		status: String
 	}
 
+	type RankingResult {
+		name: String
+		count: Int
+	}
+
 	type WinnerResult {
 		id: String
 		winnerName: String
@@ -50,5 +55,6 @@ export default gql`
 		loadRifas: [Rifa]
 		loadRifa(rifaId: String!): Rifa
 		checkWinner(rifaId: String!, drawnNumber: Int!): WinnerResult @auth
+		loadRanking(rifaId: String!): [RankingResult]
 	}
 `
