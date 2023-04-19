@@ -7,4 +7,7 @@ export type Rifa = {
 	soldNumbers: number[]
 	winnerNumber: number
 	isFinished: boolean
+	firstPrize?: number
+	secondPrize?: number
+	thirdPrize?: number
 }

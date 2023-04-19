@@ -18,6 +18,9 @@ export namespace CreateRifaService {
 		authorId: string
 		image: string
 		description: string
+		firstPrize?: number
+		secondPrize?: number
+		thirdPrize?: number
 	}
 
 	export type Result = Rifa

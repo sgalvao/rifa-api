@@ -35,6 +35,9 @@ model Rifa {
   soldNumbers  Int[]
   finishedDate DateTime?
   description  String
+  firstPrize   Float?
+  secondPrize  Float?
+  thirdPrize   Float?
 }
 
 model Winners {
