@@ -82,4 +82,28 @@ export class PaymentIntentRepository {
 
 		return payment
 	}
+
+	async loadRanking(rifaId: string) {
+		const ranking = await prisma.paymentIntent.aggregateRaw({
+			pipeline: [
+				{
+					$match: {
+						status: "approved",
+						rifaId,
+					},
+				},
+				{
+					$group: { _id: "$ownerId", count: { $sum: "$quantity" } },
+				},
+				{
+					$sort: { count: -1 },
+				},
+				{
+					$limit: 3,
+				},
+			],
+		})
+
+		return ranking
+	}
 }

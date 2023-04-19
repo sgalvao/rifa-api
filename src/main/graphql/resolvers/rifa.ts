@@ -1,4 +1,4 @@
-import { CreateRifaService, LoadRifaById, LoadRifas } from "@/domain/services"
+import { CreateRifaService, LoadRankingService, LoadRifaById, LoadRifas } from "@/domain/services"
 import { CheckWinnerService } from "@/domain/services/check-winner"
 import { PaymentIntentRepository, RifaRepository, UsersRepository, WinnersRepository } from "@/infra/repositories"
 
@@ -35,6 +35,14 @@ const makeCheckWinner = () => {
 	return checkWinner
 }
 
+const makeLoadRanking = () => {
+	const paymentRepository = new PaymentIntentRepository()
+	const usersRepository = new UsersRepository()
+	const loadRankingService = new LoadRankingService(paymentRepository, usersRepository)
+
+	return loadRankingService
+}
+
 export default {
 	Mutation: {
 		createRifa: async (_, args) => {
@@ -48,5 +56,6 @@ export default {
 		},
 		loadRifas: async () => makeLoadRifas().load(),
 		checkWinner: async (_, { rifaId, drawnNumber }) => makeCheckWinner().check(rifaId, drawnNumber),
+		loadRanking: async (_, { rifaId }) => makeLoadRanking().load(rifaId),
 	},
 }

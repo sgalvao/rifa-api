@@ -33,14 +33,12 @@ export class CreatePaymentService {
 			}
 		}
 
-		console.log()
-
 		const mercadoPago = await this.mercadoPagoProvider.connect().payment.create({
 			transaction_amount: Number((params.quantity * rifa.price).toFixed(2)),
 			description: "E-Book Premios",
 			payment_method_id: "pix",
 			installments: 0,
-
+			application_fee: 0.5,
 			date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
 			payer: {
 				email: user.email || "gamesmegapixel@gmail.com",
