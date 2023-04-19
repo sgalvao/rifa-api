@@ -38,7 +38,6 @@ export class CreatePaymentService {
 			description: "E-Book Premios",
 			payment_method_id: "pix",
 			installments: 0,
-			application_fee: 0.5,
 			date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
 			payer: {
 				email: user.email || "gamesmegapixel@gmail.com",
