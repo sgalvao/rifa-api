@@ -1,6 +1,12 @@
 import { gql } from "apollo-server-express"
 
 export default gql`
+	type RankingPrize {
+		firstPrize: Float
+		secondPrize: Float
+		thirdPrize: Float
+	}
+
 	type Rifa {
 		id: String
 		name: String!
@@ -15,6 +21,9 @@ export default gql`
 		isFinished: Boolean
 		finishedDate: DateTime
 		description: String
+		firstPrize: Float
+		secondPrize: Float
+		thirdPrize: Float
 	}
 
 	input RifaInput {
@@ -22,6 +31,9 @@ export default gql`
 		price: Float!
 		authorId: String!
 		status: String
+		firstPrize: Float
+		secondPrize: Float
+		thirdPrize: Float
 	}
 
 	type RankingResult {

@@ -14,6 +14,9 @@ export class RifaRepository {
 				winnerNumber: null,
 				participants: 0,
 				description: params.description,
+				firstPrize: params.firstPrize,
+				secondPrize: params.secondPrize,
+				thirdPrize: params.thirdPrize,
 			},
 		})
 
@@ -22,6 +25,7 @@ export class RifaRepository {
 
 	async loadById(id: string): Promise<CreateRifaService.Result> {
 		const rifa = await prisma.rifa.findUnique({ where: { id } })
+		console.log(rifa)
 		return rifa
 	}
 
