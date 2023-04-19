@@ -44,11 +44,6 @@ export class CreatePaymentService {
 				first_name: user.name,
 			},
 		})
-		console.log(
-			"🚀 ~ file: create-payment.ts:53 ~ CreatePaymentService ~  params.quantity * rifa.price:",
-			params.quantity * rifa.price
-		)
-		console.log("🚀 ~ file: create-payment.ts:53 ~ CreatePaymentService ~ mercadoPago:", mercadoPago)
 
 		const paymentIntent = await this.paymentIntentRepository.create({
 			transactionId: mercadoPago.response.id.toString(),
@@ -61,7 +56,6 @@ export class CreatePaymentService {
 			totalValue: params.quantity * rifa.price,
 			value: rifa.price,
 		})
-		console.log("🚀 ~ file: create-payment.ts:70 ~ CreatePaymentService ~ paymentIntent:", paymentIntent)
 
 		await this.rifaRepository.addSoldNumber(params.rifaId, list)
 		console.timeEnd("create payment service")
