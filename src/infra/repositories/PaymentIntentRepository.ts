@@ -96,7 +96,7 @@ export class PaymentIntentRepository {
 					$group: { _id: "$ownerId", count: { $sum: "$quantity" } },
 				},
 				{
-					$sort: { count: -1 },
+					$sort: { createdDate: 1, count: -1 },
 				},
 				{
 					$limit: 3,
