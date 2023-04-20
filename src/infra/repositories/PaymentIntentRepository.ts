@@ -93,10 +93,10 @@ export class PaymentIntentRepository {
 					},
 				},
 				{
-					$group: { _id: "$ownerId", count: { $sum: "$quantity" } },
+					$group: { _id: "$ownerId", createdAt: { $max: "$createdAt" }, count: { $sum: "$quantity" } },
 				},
 				{
-					$sort: { createdDate: 1, count: -1 },
+					$sort: { count: -1, createdAt: 1 },
 				},
 				{
 					$limit: 3,
