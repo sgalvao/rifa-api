@@ -14,8 +14,11 @@ export class PushOverProvider {
 		const push = this.connect()
 
 		const msg = {
-			message: `Pagamento Recebido ${value}`, // required
-			title: "Nova Venda",
+			message: `Pagamento Recebido ${value.toLocaleString("pt-BR", {
+				style: "currency",
+				currency: "BRL",
+			})}`,
+			title: "Novo pagamento!🤑",
 			sound: "shopify",
 			device: "iphone",
 			priority: 1,
