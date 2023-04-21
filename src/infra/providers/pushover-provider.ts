@@ -16,7 +16,7 @@ export class PushOverProvider {
 		const msg = {
 			message: `Pagamento Recebido ${value}`, // required
 			title: "Nova Venda",
-			sound: "cashregister",
+			sound: "shopify",
 			device: "iphone",
 			priority: 1,
 		}
