@@ -3,12 +3,14 @@ import { RifaRepository, UsersRepository } from "@/infra/repositories"
 import { PaymentIntentRepository } from "@/infra/repositories/PaymentIntentRepository"
 import { PaymentIntent } from "../entities"
 import { addMinutes } from "date-fns"
+import { PushOverProvider } from "@/infra/providers/pushover-provider"
 export class CreatePaymentService {
 	constructor(
 		private readonly rifaRepository: RifaRepository,
 		private readonly userRepository: UsersRepository,
 		private readonly paymentIntentRepository: PaymentIntentRepository,
-		private readonly mercadoPagoProvider: MercadoPagoProvider
+		private readonly mercadoPagoProvider: MercadoPagoProvider,
+		private readonly pushoverProvider: PushOverProvider
 	) {}
 
 	async create(params: CreatePaymentService.Params): Promise<CreatePaymentService.Result> {
@@ -32,9 +34,9 @@ export class CreatePaymentService {
 				list.push(number)
 			}
 		}
-
+		const price = Number((params.quantity * rifa.price).toFixed(2))
 		const mercadoPago = await this.mercadoPagoProvider.connect().payment.create({
-			transaction_amount: Number((params.quantity * rifa.price).toFixed(2)),
+			transaction_amount: price,
 			description: "E-Book Premios",
 			payment_method_id: "pix",
 			installments: 0,
@@ -59,6 +61,14 @@ export class CreatePaymentService {
 
 		await this.rifaRepository.addSoldNumber(params.rifaId, list)
 		console.timeEnd("create payment service")
+
+		await this.pushoverProvider.send({
+			message: `Pedido Gerado no valor de ${price.toLocaleString("pt-BR", {
+				style: "currency",
+				currency: "BRL",
+			})}`,
+			title: "Novo Pedido!😎",
+		})
 
 		return paymentIntent
 	}

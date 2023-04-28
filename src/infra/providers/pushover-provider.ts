@@ -10,15 +10,12 @@ export class PushOverProvider {
 		return push
 	}
 
-	async send(value: number) {
+	async send(params: PushOverProvider.Params) {
 		const push = this.connect()
 
 		const msg = {
-			message: `Pagamento Recebido ${value.toLocaleString("pt-BR", {
-				style: "currency",
-				currency: "BRL",
-			})}`,
-			title: "Novo pagamento!🤑",
+			message: params.message,
+			title: params.title,
 			sound: "shopify",
 			device: "iphone",
 			priority: 1,
@@ -31,5 +28,13 @@ export class PushOverProvider {
 
 			console.log(result)
 		})
+	}
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace PushOverProvider {
+	export type Params = {
+		title: string
+		message: string
 	}
 }

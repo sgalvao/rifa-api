@@ -12,11 +12,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createdAt DateTime @default(now())
-  email     String?
-  phone     String   @unique
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  createdAt    DateTime @default(now())
+  email        String?
+  phone        String   @unique
+  isAffiliated Boolean? @default(false)
 }
 
 model Rifa {

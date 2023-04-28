@@ -35,7 +35,13 @@ export class VerifyPaymentStatusService {
 			if (result.body.status === "approved") {
 				console.log("approved")
 				const payment = await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved")
-				await this.pushoverProvider.send(payment.totalValue)
+				await this.pushoverProvider.send({
+					message: `Pagamento Recebido ${payment.totalValue.toLocaleString("pt-BR", {
+						style: "currency",
+						currency: "BRL",
+					})}`,
+					title: "Novo Pagamento!🤑",
+				})
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 import { LoadPaymentById, LoadPurchasedNumbers } from "@/domain/services"
 import { CreatePaymentService } from "@/domain/services/create-payment"
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago"
+import { PushOverProvider } from "@/infra/providers/pushover-provider"
 import { RifaRepository, UsersRepository } from "@/infra/repositories"
 import { PaymentIntentRepository } from "@/infra/repositories"
 
@@ -9,11 +10,13 @@ const makeCreatePayment = () => {
 	const usersRepository = new UsersRepository()
 	const paymentIntentRepository = new PaymentIntentRepository()
 	const mercadoPagoProvider = new MercadoPagoProvider()
+	const pushoverProvider = new PushOverProvider()
 	const createPayment = new CreatePaymentService(
 		rifaRepository,
 		usersRepository,
 		paymentIntentRepository,
-		mercadoPagoProvider
+		mercadoPagoProvider,
+		pushoverProvider
 	)
 
 	return createPayment
