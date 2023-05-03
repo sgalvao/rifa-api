@@ -57,6 +57,7 @@ export class CreatePaymentService {
 			qrCode: mercadoPago.body.point_of_interaction.transaction_data.qr_code,
 			totalValue: params.quantity * rifa.price,
 			value: rifa.price,
+			referralId: params.referralId,
 		})
 
 		await this.rifaRepository.addSoldNumber(params.rifaId, list)
@@ -84,6 +85,7 @@ export namespace CreatePaymentService {
 		copyPasteCode: string
 		totalValue: number
 		value: number
+		referralId?: string
 	}
 
 	export type Result = PaymentIntent

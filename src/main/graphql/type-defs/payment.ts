@@ -24,7 +24,7 @@ export default gql`
 	}
 
 	extend type Mutation {
-		createPayment(quantity: Int!, rifaId: String!): Payment @auth
+		createPayment(quantity: Int!, rifaId: String!, referralId: String): Payment @auth
 	}
 
 	extend type Query {

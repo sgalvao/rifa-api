@@ -24,6 +24,7 @@ export class PaymentIntentRepository {
 				qrCode: params.qrCode,
 				copyPasteCode: params.copyPasteCode,
 				value: params.value,
+				referralId: params.referralId,
 			},
 		})
 
@@ -40,12 +41,9 @@ export class PaymentIntentRepository {
 	}
 
 	async verify() {
-		console.time("EXECUCAO VERIFY")
 		const paymentStatus = await prisma.paymentIntent.findMany({
 			where: { status: "pending" },
 		})
-
-		console.timeEnd("EXECUCAO VERIFY")
 
 		return paymentStatus
 	}

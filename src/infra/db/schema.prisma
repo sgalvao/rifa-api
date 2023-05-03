@@ -65,6 +65,20 @@ model PaymentIntent {
   qrCode        String
   totalValue    Float
   value         Float
+  referralId    String?
+}
+
+model Referral {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  userId String
+  balance Float?
+  lastPayment DateTime?
+  createdAt DateTime @default(now())
+  totalBalance Float?
+  pixKey String?
+  isActive Boolean @default(false)
+  hasWithdrawal Boolean @default(false)
 }
 
 model Admin {
