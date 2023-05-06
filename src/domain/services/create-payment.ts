@@ -57,10 +57,8 @@ export class CreatePaymentService {
 			qrCode: mercadoPago.body.point_of_interaction.transaction_data.qr_code,
 			totalValue: params.quantity * rifa.price,
 			value: rifa.price,
+			referralCode: params.referralCode,
 		})
-
-		await this.rifaRepository.addSoldNumber(params.rifaId, list)
-		console.timeEnd("create payment service")
 
 		await this.pushoverProvider.send({
 			message: `Pedido Gerado no valor de ${price.toLocaleString("pt-BR", {
@@ -69,7 +67,6 @@ export class CreatePaymentService {
 			})}`,
 			title: "Novo Pedido!😎",
 		})
-
 		return paymentIntent
 	}
 }
@@ -84,6 +81,8 @@ export namespace CreatePaymentService {
 		copyPasteCode: string
 		totalValue: number
 		value: number
+		referralCode?: string
+
 	}
 
 	export type Result = PaymentIntent
