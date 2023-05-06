@@ -1,67 +1,65 @@
-import {
-  PaymentIntentRepository,
-  RifaRepository,
-  UsersRepository,
-  WinnersRepository,
-} from "@/infra/repositories";
+import { PaymentIntentRepository, RifaRepository, UsersRepository, WinnersRepository } from "@/infra/repositories"
 
 export class CheckWinnerService {
-  constructor(
-    private readonly paymentIntentRepository: PaymentIntentRepository,
-    private readonly rifaRepository: RifaRepository,
-    private readonly usersRepository: UsersRepository,
-    private readonly winnersRepository: WinnersRepository
-  ) {}
+	constructor(
+		private readonly paymentIntentRepository: PaymentIntentRepository,
+		private readonly rifaRepository: RifaRepository,
+		private readonly usersRepository: UsersRepository,
+		private readonly winnersRepository: WinnersRepository
+	) {}
 
-  async check(rifaId: string, drawnNumber: number) {
-    const isSold = await this.rifaRepository.verifyNumber(drawnNumber, rifaId);
+	async check(rifaId: string, drawnNumber: number) {
+		const rifa = await this.rifaRepository.loadById(rifaId)
 
-    if (!isSold) {
-      throw new Error("Número não foi vendido");
-    }
+		if (rifa.isFinished) {
+			throw new Error("Rifa já foi finalizada!")
+		}
 
-    const payment = await this.paymentIntentRepository.verifyWinner(
-      rifaId,
-      drawnNumber
-    );
+		if (rifa.soldNumbers) {
+			const isSold = Boolean(rifa.soldNumbers.find((el) => el === drawnNumber))
 
-    if (!payment) {
-      throw new Error("Numero não foi pago!");
-    }
+			if (!isSold) {
+				throw new Error("Número não foi vendido")
+			}
 
-    const user = await this.usersRepository.findById(payment.ownerId);
+			const payment = await this.paymentIntentRepository.verifyWinner(rifaId, drawnNumber)
 
-    const rifaWinner = await this.rifaRepository.finish({
-      rifaId,
-      drawnNumber,
-      winnerId: user.id,
-      winnerName: user.name,
-    });
+			if (!payment) {
+				throw new Error("Numero não foi pago!")
+			}
 
-    const winnerParams = {
-      rifaId: rifaWinner.id,
-      rifaImage: rifaWinner.image,
-      winnerId: rifaWinner.winnerId,
-      winnerName: rifaWinner.winnerName,
-      winnerNumber: rifaWinner.winnerNumber,
-    };
+			const user = await this.usersRepository.findById(payment.ownerId)
 
-    const createWinner = await this.winnersRepository.create(winnerParams);
+			const rifaWinner = await this.rifaRepository.finish({
+				rifaId,
+				drawnNumber,
+				winnerId: user.id,
+				winnerName: user.name,
+			})
 
-    return {
-      winnerName: createWinner.winnerName,
-      winnerDate: createWinner.createdAt,
-      rifaImage: createWinner.rifaImage,
-      rifaName: createWinner.rifaName,
-    };
-  }
+			const winnerParams = {
+				rifaId: rifaWinner.id,
+				rifaImage: rifaWinner.image,
+				rifaName: rifaWinner.name,
+				winnerId: rifaWinner.winnerId,
+				winnerName: rifaWinner.winnerName,
+				winnerNumber: rifaWinner.winnerNumber,
+			}
+
+			const createWinner = await this.winnersRepository.create(winnerParams)
+
+			return createWinner
+		}
+		throw new Error("Nenhum numero foi vendido!")
+	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CheckWinnerService {
-  export type Params = {
-    rifaId: string;
-    drawnNumber: number;
-    winnerName: string;
-    winnerId: string;
-  };
+	export type Params = {
+		rifaId: string
+		drawnNumber: number
+		winnerName: string
+		winnerId: string
+	}
 }

@@ -12,39 +12,44 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createdAt DateTime @default(now())
-  email     String   @unique
-  phone     String   @unique
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  createdAt    DateTime @default(now())
+  email        String?
+  phone        String   @unique
+  isAffiliated Boolean? @default(false)
 }
 
 model Rifa {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   price        Float
   image        String
   status       String
-  isFinished   Boolean @default(false)
+  isFinished   Boolean   @default(false)
   authorId     String
-  createdAt    DateTime @default(now())
+  createdAt    DateTime  @default(now())
   winnerNumber Int?
-  winnerName String?
-  winnerId String?
+  winnerName   String?
+  winnerId     String?
   participants Int?
   soldNumbers  Int[]
+  finishedDate DateTime?
+  description  String
+  firstPrize   Float?
+  secondPrize  Float?
+  thirdPrize   Float?
 }
 
-
 model Winners {
-    id            String   @id @default(auto()) @map("_id") @db.ObjectId
-    winnerName  String
-    winnerId   String
-    winnerNumber Int
-    rifaName String
-    rifaImage String
-    rifaId String
-    createdAt DateTime @default(now())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  winnerName   String
+  winnerId     String
+  winnerNumber Int
+  rifaName     String
+  rifaImage    String
+  rifaId       String
+  createdAt    DateTime @default(now())
 }
 
 model PaymentIntent {
