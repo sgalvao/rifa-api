@@ -13,6 +13,8 @@ export default gql`
 		value: Float
 		createdAt: DateTime
 		referralCode: String
+		status: String
+
 	}
 
 	type Purchased {

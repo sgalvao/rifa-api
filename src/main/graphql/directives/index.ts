@@ -7,6 +7,7 @@ import { LoadUserByTokenService } from "@/domain/services"
 import { LoadPartnerByTokenService } from "@/domain/services/load-partner-by-token"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 
+
 const makeLoadUserToken = () => {
 	const userRepository = new UsersRepository()
 	const jwtProvider = new JwtProvider()

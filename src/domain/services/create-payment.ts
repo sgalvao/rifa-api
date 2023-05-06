@@ -67,7 +67,6 @@ export class CreatePaymentService {
 			})}`,
 			title: "Novo Pedido!😎",
 		})
-
 		return paymentIntent
 	}
 }
@@ -83,6 +82,7 @@ export namespace CreatePaymentService {
 		totalValue: number
 		value: number
 		referralCode?: string
+
 	}
 
 	export type Result = PaymentIntent
