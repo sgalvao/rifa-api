@@ -12,6 +12,7 @@ export default gql`
     totalValue: Float
     value: Float
     createdAt: DateTime
+    referralCode: String
   }
 
   type Purchased {
@@ -20,11 +21,14 @@ export default gql`
     image: String
     name: String
     status: String
-
   }
 
   extend type Mutation {
-    createPayment(quantity: Int!, rifaId: String!): Payment @auth
+    createPayment(
+      quantity: Int!
+      rifaId: String!
+      referralCode: String
+    ): Payment @auth
   }
 
   extend type Query {

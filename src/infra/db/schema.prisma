@@ -58,9 +58,28 @@ model PaymentIntent {
   transactionId String
   copyPasteCode String
   qrCode        String
+  referralCode String?
   totalValue    Float
   value         Float
 }
+
+model Withdrawal {
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+    partnerId String
+    value Float
+    withdrawalDate DateTime
+    action String?
+}
+
+model Partner {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+  isActive Boolean @default(true)
+  referralCode String @unique
+}
+
 
 model Admin {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
