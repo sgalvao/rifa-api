@@ -14,7 +14,6 @@ export default gql`
 		createdAt: DateTime
 		referralCode: String
 		status: String
-
 	}
 
 	type Purchased {

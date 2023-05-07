@@ -80,9 +80,13 @@ model Partner {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
+  phone String
   password String
   isActive Boolean @default(true)
   referralCode String @unique
+  balance Float @default(0)
+  totalBalance Float @default(0)
+  pixCode String
 }
 
 

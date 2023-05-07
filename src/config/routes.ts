@@ -2,19 +2,22 @@ import { VerifyPaymentStatusService } from "@/domain/services"
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago"
 import { PushOverProvider } from "@/infra/providers/pushover-provider"
 import { PaymentIntentRepository, RifaRepository } from "@/infra/repositories"
+import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 import { handleUserList } from "@/utils/get-expired-payment-users"
 import { Express } from "express"
 
 const makePaymentVerifyStatus = () => {
 	const rifaRepository = new RifaRepository()
 	const paymentIntentRepository = new PaymentIntentRepository()
+	const partnerRepository = new PartnerRepository()
 	const mercadoPagoProvider = new MercadoPagoProvider()
 	const pushOverProvider = new PushOverProvider()
 	const verifyPaymentStatus = new VerifyPaymentStatusService(
 		rifaRepository,
 		paymentIntentRepository,
 		mercadoPagoProvider,
-		pushOverProvider
+		pushOverProvider,
+		partnerRepository
 	)
 
 	return verifyPaymentStatus

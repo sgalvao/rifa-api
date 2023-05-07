@@ -7,7 +7,6 @@ import { LoadUserByTokenService } from "@/domain/services"
 import { LoadPartnerByTokenService } from "@/domain/services/load-partner-by-token"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 
-
 const makeLoadUserToken = () => {
 	const userRepository = new UsersRepository()
 	const jwtProvider = new JwtProvider()
@@ -25,17 +24,17 @@ const makeLoadPartnerToken = () => {
 export const partnerDirective = (schema, directiveName) => {
 	return mapSchema(schema, {
 		[MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-			const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0]
-			if (authDirective) {
+			const partnerDirective = getDirective(schema, fieldConfig, directiveName)?.[0]
+			if (partnerDirective) {
 				const { resolve = defaultFieldResolver } = fieldConfig
 				fieldConfig.resolve = async function (source, args, context, info) {
 					const accessToken = context?.req?.headers?.["authorization"]
-					// Write here your own logic to get the user from accessToken
 					const partner = await makeLoadPartnerToken().load(accessToken)
 					if (!partner) {
 						throw new ForbiddenError("Not authorized")
 					}
-					return resolve(source, args, Object.assign(context, { userId: partner.id }), info)
+
+					return resolve(source, args, Object.assign(context, { partnerId: partner.id }), info)
 				}
 				return fieldConfig
 			}

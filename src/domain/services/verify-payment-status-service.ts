@@ -1,12 +1,14 @@
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago"
 import { PushOverProvider } from "@/infra/providers/pushover-provider"
 import { PaymentIntentRepository, RifaRepository } from "@/infra/repositories"
+import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 export class VerifyPaymentStatusService {
 	constructor(
 		private readonly rifaRepository: RifaRepository,
 		private readonly paymentIntentRepository: PaymentIntentRepository,
 		private readonly mercadoPagoProvider: MercadoPagoProvider,
-		private readonly pushoverProvider: PushOverProvider
+		private readonly pushoverProvider: PushOverProvider,
+		private readonly partnerRepository: PartnerRepository
 	) {}
 
 	async verify() {
@@ -35,6 +37,13 @@ export class VerifyPaymentStatusService {
 			if (result.body.status === "approved") {
 				console.log("approved")
 				const payment = await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved")
+
+				if (payment.referralCode) {
+					await this.partnerRepository.addBalance({
+						balance: payment.totalValue * 0.3,
+						referralCode: payment.referralCode,
+					})
+				}
 				await this.pushoverProvider.send({
 					message: `Pagamento Recebido ${payment.totalValue.toLocaleString("pt-BR", {
 						style: "currency",
