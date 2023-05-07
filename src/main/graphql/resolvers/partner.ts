@@ -30,11 +30,12 @@ export default {
 			return makePartnerAuthentication().auth(args)
 		},
 		loadPartner: (_, args, { partnerId }) => {
-			console.log(partnerId)
 			return makePartnerLoadAccountById().load(partnerId)
 		},
 	},
 	Mutation: {
-		createPartner: async (_, { partner }) => makePartnerCreateAccount().create(partner),
+		createPartner: async (_, { user }) => {
+			return makePartnerCreateAccount().create(user)
+		},
 	},
 }

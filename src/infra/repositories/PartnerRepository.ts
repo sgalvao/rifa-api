@@ -68,4 +68,10 @@ export class PartnerRepository {
 
 		return partner
 	}
+
+	async checkReferralCode(referralCode: string) {
+		const referral = await prisma.partner.findFirst({ where: { referralCode } })
+
+		return !!referral
+	}
 }

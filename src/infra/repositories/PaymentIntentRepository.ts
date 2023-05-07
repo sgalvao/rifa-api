@@ -24,6 +24,7 @@ export class PaymentIntentRepository {
 				qrCode: params.qrCode,
 				copyPasteCode: params.copyPasteCode,
 				value: params.value,
+				referralCode: params.referralCode,
 			},
 		})
 

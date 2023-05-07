@@ -1,6 +1,7 @@
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 import { Partner } from "../entities/Partner"
 import { HashProvider } from "@/infra/providers"
+import { generateReferralCode } from "@/utils/generate-referral-code"
 
 export class CreatePartnerService {
 	constructor(private readonly partnerRepository: PartnerRepository, private readonly hashProvider: HashProvider) {}
@@ -11,13 +12,12 @@ export class CreatePartnerService {
 		if (validateEmail) {
 			throw new Error("Email já cadastrado!")
 		}
-
 		const passwordEncrypted = await this.hashProvider.createHash(params.password, 10)
-
+		const referralCode: string = await generateReferralCode()
 		return this.partnerRepository.create({
 			...params,
 			password: passwordEncrypted,
-			referralCode: "123",
+			referralCode,
 		})
 	}
 }

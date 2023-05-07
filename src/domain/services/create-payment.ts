@@ -82,7 +82,6 @@ export namespace CreatePaymentService {
 		totalValue: number
 		value: number
 		referralCode?: string
-
 	}
 
 	export type Result = PaymentIntent
