@@ -8,6 +8,19 @@ export default gql`
 		phone: String
 		referralCode: String
 		pixCode: String
+		balance: Float
+		totalBalance: Float
+	}
+
+	type SalesResult {
+		name: String
+		value: Float
+		date: DateTime
+	}
+
+	type Sales {
+		sales: [SalesResult]
+		count: Int
 	}
 
 	input PartnerInput {
@@ -29,6 +42,7 @@ export default gql`
 	extend type Query {
 		loginPartner(email: String!, password: String!): PartnerResult
 		loadPartner: Partner @authPartner
+		loadPartnerSales: Sales @authPartner
 	}
 
 	extend type Mutation {

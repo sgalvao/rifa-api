@@ -68,11 +68,11 @@ model PaymentIntent {
   value         Float
 }
 
-model Withdrawal {
+model TransactionStatement {
     id            String   @id @default(auto()) @map("_id") @db.ObjectId
     partnerId String
     value Float
-    withdrawalDate DateTime
+    transactionDate DateTime
     action String?
 }
 

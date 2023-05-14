@@ -107,4 +107,20 @@ export class PaymentIntentRepository {
 
 		return ranking
 	}
+
+	async findByReferralId(referralId: string) {
+		const sales = await prisma.paymentIntent.findMany({
+			take: 5,
+			where: { AND: [{ referralCode: referralId }, { status: "approved" }] },
+		})
+
+		const count = await prisma.paymentIntent.count({ where: { referralCode: referralId } })
+
+		const result = {
+			sales,
+			count,
+		}
+
+		return result
+	}
 }

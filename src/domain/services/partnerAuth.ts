@@ -13,6 +13,7 @@ export class PartnerAuthService {
 
 	async auth(params: PartnerAuthService.Params): Promise<PartnerAuthService.Result> {
 		const user = await this.partnerRepository.findByEmail(params.email)
+
 		if (!user) {
 			throw new Error("Usuário ou senha invalida!")
 		}
@@ -23,8 +24,8 @@ export class PartnerAuthService {
 			throw new Error("Usuário ou senha invalida!")
 		}
 
-		const token = this.jwtProvider.encryptToken(user.email, env.jwtSecret)
-
+		const token = await this.jwtProvider.encryptToken(user.email, env.jwtSecret)
+		console.log(Object.assign(user, { token }))
 		return Object.assign(user, { token })
 	}
 }

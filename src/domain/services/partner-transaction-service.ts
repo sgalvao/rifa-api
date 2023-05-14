@@ -1,10 +1,10 @@
-import { WithdrawalRepository } from "@/infra/repositories"
+import { TransactionStatementRepository } from "@/infra/repositories"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 
 export class PartnerTransactionService {
 	constructor(
 		private readonly partnerRepository: PartnerRepository,
-		private readonly withdrawalRepository: WithdrawalRepository
+		private readonly withdrawalRepository: TransactionStatementRepository
 	) {}
 
 	async withdrawal(partnerId: string) {
@@ -22,7 +22,7 @@ export class PartnerTransactionService {
 
 		await this.withdrawalRepository.create({
 			partnerId: partnerId,
-			value: partner.balance,
+			value: -partner.balance,
 		})
 		return await this.partnerRepository.update({ balance: 0 })
 	}
