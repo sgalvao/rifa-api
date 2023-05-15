@@ -123,4 +123,10 @@ export class PaymentIntentRepository {
 
 		return result
 	}
+
+	async findPartnerResults(referralId: string) {
+		const results = await prisma.paymentIntent.findMany({ where: { referralCode: referralId } })
+
+		return results
+	}
 }

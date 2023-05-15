@@ -1,4 +1,5 @@
 import { CreatePartnerService, LoadPartnerByIdService, PartnerAuthService } from "@/domain/services"
+import { LoadPartnerRelatory } from "@/domain/services/load-partner-relatory"
 import { LoadPartnerSalesService } from "@/domain/services/load-partner-sales"
 import { HashProvider, JwtProvider } from "@/infra/providers"
 import { PaymentIntentRepository, UsersRepository } from "@/infra/repositories"
@@ -36,6 +37,15 @@ const makeLoadPartnerSales = () => {
 	return loadPartnerSales
 }
 
+const makeLoadPartnerRelatory = () => {
+	const partnerRepository = new PartnerRepository()
+	const paymentIntentRepository = new PaymentIntentRepository()
+	const usersRepository = new UsersRepository()
+	const loadPartnerRelatory = new LoadPartnerRelatory(paymentIntentRepository, partnerRepository, usersRepository)
+
+	return loadPartnerRelatory
+}
+
 export default {
 	Query: {
 		loginPartner: (_, args) => {
@@ -46,6 +56,7 @@ export default {
 			return makePartnerLoadAccountById().load(partnerId)
 		},
 		loadPartnerSales: (_, args, { partnerId }) => makeLoadPartnerSales().load(partnerId),
+		loadPartnerRelatory: (_, args, { partnerId }) => makeLoadPartnerRelatory().load(partnerId),
 	},
 	Mutation: {
 		createPartner: async (_, { user }) => {

@@ -18,6 +18,13 @@ export default gql`
 		date: DateTime
 	}
 
+	type Relatory {
+		name: String
+		value: Float
+		status: String
+		date: DateTime
+	}
+
 	type Sales {
 		sales: [SalesResult]
 		count: Int
@@ -43,6 +50,7 @@ export default gql`
 		loginPartner(email: String!, password: String!): PartnerResult
 		loadPartner: Partner @authPartner
 		loadPartnerSales: Sales @authPartner
+		loadPartnerRelatory: [Relatory] @authPartner
 	}
 
 	extend type Mutation {

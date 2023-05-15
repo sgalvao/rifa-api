@@ -17,6 +17,8 @@ export class CreatePaymentService {
 		const list = []
 		console.time("create payment service")
 
+		console.log(params)
+
 		const rifa = await this.rifaRepository.loadById(params.rifaId)
 		const user = await this.userRepository.findById(params.ownerId)
 
