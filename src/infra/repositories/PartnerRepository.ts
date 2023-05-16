@@ -10,6 +10,7 @@ export class PartnerRepository {
 				phone: params.phone,
 				referralCode: params.referralCode,
 				pixCode: params.pixCode,
+				cpf: params.cpf,
 			},
 		})
 

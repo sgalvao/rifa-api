@@ -49,14 +49,13 @@ const makeLoadPartnerRelatory = () => {
 export default {
 	Query: {
 		loginPartner: (_, args) => {
-			console.log(args)
 			return makePartnerAuthentication().auth(args)
 		},
 		loadPartner: (_, args, { partnerId }) => {
 			return makePartnerLoadAccountById().load(partnerId)
 		},
 		loadPartnerSales: (_, args, { partnerId }) => makeLoadPartnerSales().load(partnerId),
-		loadPartnerRelatory: (_, args, { partnerId }) => makeLoadPartnerRelatory().load(partnerId),
+		loadPartnerRelatory: (_, { offset }, { partnerId }) => makeLoadPartnerRelatory().load(partnerId, offset),
 	},
 	Mutation: {
 		createPartner: async (_, { user }) => {

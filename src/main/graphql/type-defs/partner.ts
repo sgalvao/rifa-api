@@ -35,7 +35,8 @@ export default gql`
 		email: String!
 		phone: String!
 		password: String!
-		pixCode: String
+		pixCode: String!
+		cpf: String!
 	}
 
 	type PartnerResult {
@@ -50,7 +51,7 @@ export default gql`
 		loginPartner(email: String!, password: String!): PartnerResult
 		loadPartner: Partner @authPartner
 		loadPartnerSales: Sales @authPartner
-		loadPartnerRelatory: [Relatory] @authPartner
+		loadPartnerRelatory(offset: Int!): [Relatory] @authPartner
 	}
 
 	extend type Mutation {

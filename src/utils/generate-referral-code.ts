@@ -11,7 +11,6 @@ export const generateReferralCode = async (): Promise<string> => {
 		referralCode += characters.charAt(randomIndex)
 	}
 	const invalidReferral = await partnerRepository.checkReferralCode(referralCode)
-	console.log(invalidReferral)
 	if (invalidReferral) {
 		generateReferralCode()
 	}

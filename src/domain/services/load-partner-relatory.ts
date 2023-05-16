@@ -8,9 +8,9 @@ export class LoadPartnerRelatory {
 		private readonly usersRepository: UsersRepository
 	) {}
 
-	async load(id: string) {
+	async load(id: string, offset: number) {
 		const partner = await this.partnerRepository.findById(id)
-		const results = await this.paymentIntent.findPartnerResults(partner.referralCode)
+		const results = await this.paymentIntent.findPartnerResults(partner.referralCode, offset)
 
 		const relatory = []
 
@@ -24,8 +24,6 @@ export class LoadPartnerRelatory {
 				date: item.createdAt,
 			})
 		}
-
-		console.log(relatory)
 
 		return relatory
 	}

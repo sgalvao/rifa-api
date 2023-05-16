@@ -31,6 +31,7 @@ export namespace CreatePartnerService {
 		phone: string
 		pixCode: string
 		password: string
+		cpf: string
 	}
 	export type Result = Partner
 }

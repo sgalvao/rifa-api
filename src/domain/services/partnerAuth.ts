@@ -25,7 +25,6 @@ export class PartnerAuthService {
 		}
 
 		const token = await this.jwtProvider.encryptToken(user.email, env.jwtSecret)
-		console.log(Object.assign(user, { token }))
 		return Object.assign(user, { token })
 	}
 }

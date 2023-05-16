@@ -111,6 +111,7 @@ export class PaymentIntentRepository {
 	async findByReferralId(referralId: string) {
 		const sales = await prisma.paymentIntent.findMany({
 			take: 5,
+			orderBy: { createdAt: "desc" },
 			where: { AND: [{ referralCode: referralId }, { status: "approved" }] },
 		})
 
@@ -124,8 +125,13 @@ export class PaymentIntentRepository {
 		return result
 	}
 
-	async findPartnerResults(referralId: string) {
-		const results = await prisma.paymentIntent.findMany({ where: { referralCode: referralId } })
+	async findPartnerResults(referralId: string, offset: number) {
+		const results = await prisma.paymentIntent.findMany({
+			orderBy: { createdAt: "desc" },
+			skip: offset,
+			take: 10,
+			where: { referralCode: referralId },
+		})
 
 		return results
 	}

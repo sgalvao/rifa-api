@@ -22,7 +22,7 @@ export class PartnerTransactionService {
 
 		await this.withdrawalRepository.create({
 			partnerId: partnerId,
-			value: -partner.balance,
+			value: partner.balance,
 		})
 		return await this.partnerRepository.update({ balance: 0 })
 	}
