@@ -4,18 +4,18 @@ import { makeExecutableSchema } from "@graphql-tools/schema"
 
 import resolvers from "@/main/graphql/resolvers"
 import typeDefs from "@/main/graphql/type-defs"
-import { authDirective } from "@/main/graphql/directives"
+import { authDirective, partnerDirective } from "@/main/graphql/directives"
 
 export const schema = makeExecutableSchema({
 	typeDefs,
 	resolvers,
 })
-
 const schemaWithAuthDirective = authDirective(schema, "auth")
+const schemaWithPartnerDirective = partnerDirective(schemaWithAuthDirective, "authPartner")
 
 export const startApolloServer = async (app: Express) => {
 	const server = new ApolloServer({
-		schema: schemaWithAuthDirective,
+		schema: schemaWithPartnerDirective,
 		context: ({ req }) => ({ req }),
 		introspection: true,
 	})

@@ -24,6 +24,7 @@ export class PaymentIntentRepository {
 				qrCode: params.qrCode,
 				copyPasteCode: params.copyPasteCode,
 				value: params.value,
+				referralCode: params.referralCode,
 			},
 		})
 
@@ -105,5 +106,33 @@ export class PaymentIntentRepository {
 		})
 
 		return ranking
+	}
+
+	async findByReferralId(referralId: string) {
+		const sales = await prisma.paymentIntent.findMany({
+			take: 5,
+			orderBy: { createdAt: "desc" },
+			where: { AND: [{ referralCode: referralId }, { status: "approved" }] },
+		})
+
+		const count = await prisma.paymentIntent.count({ where: { referralCode: referralId } })
+
+		const result = {
+			sales,
+			count,
+		}
+
+		return result
+	}
+
+	async findPartnerResults(referralId: string, offset: number) {
+		const results = await prisma.paymentIntent.findMany({
+			orderBy: { createdAt: "desc" },
+			skip: offset,
+			take: 10,
+			where: { referralCode: referralId },
+		})
+
+		return results
 	}
 }
