@@ -35,7 +35,6 @@ export class VerifyPaymentStatusService {
 			}
 
 			if (result.body.status === "approved") {
-				console.log("approved")
 				const payment = await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved")
 
 				if (payment.referralCode) {
