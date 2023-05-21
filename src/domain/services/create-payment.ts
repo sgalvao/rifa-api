@@ -60,6 +60,8 @@ export class CreatePaymentService {
 			referralCode: params.referralCode,
 		})
 
+		await this.rifaRepository.addSoldNumber(params.rifaId, list)
+
 		await this.pushoverProvider.send({
 			message: `Pedido Gerado no valor de ${price.toLocaleString("pt-BR", {
 				style: "currency",
