@@ -31,5 +31,6 @@ export default gql`
 	extend type Query {
 		loadPaymentById(id: String): Payment @auth
 		loadPurchasedNumbers: [Purchased] @auth
+		verifyStatus(paymentId: String): Boolean
 	}
 `

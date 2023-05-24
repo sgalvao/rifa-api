@@ -1,4 +1,4 @@
-import { LoadPaymentById, LoadPurchasedNumbers } from "@/domain/services"
+import { LoadPaymentById, LoadPurchasedNumbers, VerifyPaymentService } from "@/domain/services"
 import { CreatePaymentService } from "@/domain/services/create-payment"
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago"
 import { PushOverProvider } from "@/infra/providers/pushover-provider"
@@ -35,6 +35,13 @@ const makeLoadPurchasedNumbers = () => {
 	return loadPurchasedNumbers
 }
 
+const makeVerifyPayment = () => {
+	const paymentIntentRepository = new PaymentIntentRepository()
+	const verifyPaymentService = new VerifyPaymentService(paymentIntentRepository)
+
+	return verifyPaymentService
+}
+
 export default {
 	Mutation: {
 		createPayment: (_, args, { userId }) => {
@@ -44,5 +51,9 @@ export default {
 	Query: {
 		loadPaymentById: (_, { id }) => makeLoadPaymentById().load(id),
 		loadPurchasedNumbers: (_, args, { userId }) => makeLoadPurchasedNumbers().load(userId),
+		verifyStatus: (_, { paymentId }) => {
+			console.log("bateu")
+			return makeVerifyPayment().verify(paymentId)
+		},
 	},
 }

@@ -74,6 +74,16 @@ export class PaymentIntentRepository {
 		return payment
 	}
 
+	async isPayed(paymentId: string) {
+		const payment = await prisma.paymentIntent.findUnique({ where: { id: paymentId } })
+
+		if (payment.status === "approved") {
+			return true
+		}
+
+		return false
+	}
+
 	async loadByOwnerId(ownerId: string) {
 		const payment = await prisma.paymentIntent.findMany({
 			where: {
