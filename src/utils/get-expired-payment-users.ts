@@ -8,7 +8,7 @@ export const handleUserList = async () => {
 		take: 10,
 	})
 
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < paymentsExpired.length; i++) {
 		const user = await prisma.user.findUnique({ where: { id: paymentsExpired[i].ownerId } })
 
 		usersList.push({ name: user.name, phone: user.phone })
