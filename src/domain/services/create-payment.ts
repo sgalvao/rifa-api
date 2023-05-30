@@ -42,7 +42,7 @@ export class CreatePaymentService {
 			installments: 0,
 			date_of_expiration: addMinutes(Date.now(), 10).toISOString(),
 			payer: {
-				email: user.email || "gamesmegapixel@gmail.com",
+				email: user.email || "sememail@hotmail.com",
 				first_name: user.name,
 			},
 		})
