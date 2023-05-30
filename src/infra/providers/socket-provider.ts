@@ -14,7 +14,7 @@ export const SocketProvider = (server) => {
 			onlineUsers++
 			io.emit("userCount", onlineUsers)
 			console.log("usuario", onlineUsers)
-			io.on("disconnect", () => {
+			socket.on("disconnect", () => {
 				onlineUsers--
 				console.log("Usuário desconectado. Usuários online:", onlineUsers)
 				io.emit("userCount", onlineUsers)
