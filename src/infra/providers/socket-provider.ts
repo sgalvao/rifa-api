@@ -11,13 +11,18 @@ export const SocketProvider = (server) => {
 	io.on("connection", (socket) => {
 		socket.on("addUserToCount", () => {
 			onlineUsers++
-			io.emit("userCount", onlineUsers) // Envia a contagem atualizada para todos os clientes
+			io.emit("userCount", onlineUsers)
+			console.log(onlineUsers, "<== USERS ONLINE")
 		})
 
 		socket.on("disconnect", () => {
+			if (onlineUsers === 0) {
+				console.log(onlineUsers, "<== USERS Desconectou")
+				return io.emit("userCount", 0)
+			}
 			onlineUsers--
-			io.emit("userCount", onlineUsers) // Envia a contagem atualizada para todos os clientes
+			io.emit("userCount", onlineUsers)
+			console.log(onlineUsers, "<== USERS Desconectou")
 		})
 	})
-	console.log(onlineUsers, "<== USERS ONLINE")
 }
