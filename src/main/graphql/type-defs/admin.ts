@@ -47,6 +47,6 @@ export default gql`
 	}
 
 	extend type Mutation {
-		createAdmin(admin: AdminInput!): Admin @admin
+		createAdmin(admin: AdminInput!): Admin
 	}
 `
