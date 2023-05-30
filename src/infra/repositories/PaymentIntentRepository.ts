@@ -135,6 +135,20 @@ export class PaymentIntentRepository {
 		return result
 	}
 
+	async findLastFive() {
+		const sales = await prisma.paymentIntent.findMany({
+			take: 5,
+			orderBy: { createdAt: "desc" },
+			where: { status: "approved" },
+		})
+
+		const result = {
+			sales,
+		}
+
+		return result
+	}
+
 	async findPartnerResults(referralId: string, offset: number) {
 		const results = await prisma.paymentIntent.findMany({
 			orderBy: { createdAt: "desc" },
@@ -144,5 +158,16 @@ export class PaymentIntentRepository {
 		})
 
 		return results
+	}
+
+	async findAll() {
+		const payments = await prisma.paymentIntent.findMany({ orderBy: { createdAt: "desc" } })
+
+		return payments
+	}
+
+	async findAllFilter(offset = 0) {
+		const payments = await prisma.paymentIntent.findMany({ orderBy: { createdAt: "desc" }, take: 25, skip: offset })
+		return payments
 	}
 }

@@ -21,12 +21,10 @@ export class PushOverProvider {
 			priority: 1,
 		}
 
-		push.send(msg, (err, result) => {
+		push.send(msg, (err) => {
 			if (err) {
 				throw new Error(err)
 			}
-
-			console.log(result)
 		})
 	}
 }

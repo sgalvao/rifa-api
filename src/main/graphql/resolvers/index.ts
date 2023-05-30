@@ -4,4 +4,13 @@ import rifaResolver from "./rifa"
 import winnersResolver from "./winners"
 import partnerResolver from "./partner"
 import transactions from "./transactions"
-export default [userResolver, rifaResolver, paymentResolver, winnersResolver, partnerResolver, transactions]
+import adminResolver from "./admin"
+export default [
+	userResolver,
+	rifaResolver,
+	paymentResolver,
+	winnersResolver,
+	partnerResolver,
+	transactions,
+	adminResolver,
+]

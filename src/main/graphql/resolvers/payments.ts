@@ -52,7 +52,6 @@ export default {
 		loadPaymentById: (_, { id }) => makeLoadPaymentById().load(id),
 		loadPurchasedNumbers: (_, args, { userId }) => makeLoadPurchasedNumbers().load(userId),
 		verifyStatus: (_, { paymentId }) => {
-			console.log("bateu")
 			return makeVerifyPayment().verify(paymentId)
 		},
 	},

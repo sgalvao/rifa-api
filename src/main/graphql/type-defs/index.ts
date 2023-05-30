@@ -7,5 +7,15 @@ import paymentTypes from "./payment"
 import winnersTypes from "./winners"
 import partnerTypes from "./partner"
 import transactions from "./transactions"
+import admin from "./admin"
 
-export default mergeTypeDefs([baseTypes, userTypes, rifaTypes, paymentTypes, winnersTypes, partnerTypes, transactions])
+export default mergeTypeDefs([
+	baseTypes,
+	userTypes,
+	rifaTypes,
+	paymentTypes,
+	winnersTypes,
+	partnerTypes,
+	transactions,
+	admin,
+])

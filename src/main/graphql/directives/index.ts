@@ -1,9 +1,9 @@
 import { defaultFieldResolver } from "graphql"
 import { ForbiddenError } from "apollo-server-express"
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils"
-import { UsersRepository } from "@/infra/repositories"
+import { AdminRepository, UsersRepository } from "@/infra/repositories"
 import { JwtProvider } from "@/infra/providers"
-import { LoadUserByTokenService } from "@/domain/services"
+import { LoadAdminByTokenService, LoadUserByTokenService } from "@/domain/services"
 import { LoadPartnerByTokenService } from "@/domain/services/load-partner-by-token"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 
@@ -19,6 +19,34 @@ const makeLoadPartnerToken = () => {
 	const jwtProvider = new JwtProvider()
 	const loadPartnerByTokenService = new LoadPartnerByTokenService(partnerRepository, jwtProvider)
 	return loadPartnerByTokenService
+}
+
+const makeLoadAdminToken = () => {
+	const adminRepository = new AdminRepository()
+	const jwtProvider = new JwtProvider()
+	const loadPartnerByTokenService = new LoadAdminByTokenService(adminRepository, jwtProvider)
+	return loadPartnerByTokenService
+}
+
+export const adminDirective = (schema, directiveName) => {
+	return mapSchema(schema, {
+		[MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+			const partnerDirective = getDirective(schema, fieldConfig, directiveName)?.[0]
+			if (partnerDirective) {
+				const { resolve = defaultFieldResolver } = fieldConfig
+				fieldConfig.resolve = async function (source, args, context, info) {
+					const accessToken = context?.req?.headers?.["authorization"]
+					const admin = await makeLoadAdminToken().load(accessToken)
+					if (!admin) {
+						throw new ForbiddenError("Not authorized")
+					}
+
+					return resolve(source, args, Object.assign(context, { adminId: admin.id }), info)
+				}
+				return fieldConfig
+			}
+		},
+	})
 }
 
 export const partnerDirective = (schema, directiveName) => {

@@ -16,7 +16,7 @@ export class PartnerTransactionService {
 
 		const withdrawalValid = partner.balance
 
-		if (withdrawalValid < 50) {
+		if (withdrawalValid < 30) {
 			throw new Error("Saldo insuficiente para saque")
 		}
 
