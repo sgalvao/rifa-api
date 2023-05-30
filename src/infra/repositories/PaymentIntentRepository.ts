@@ -167,7 +167,7 @@ export class PaymentIntentRepository {
 	}
 
 	async findAllFilter(offset = 0) {
-		const payments = await prisma.paymentIntent.findMany({ orderBy: { createdAt: "desc" }, take: 25, skip: offset })
+		const payments = await prisma.paymentIntent.findMany({ orderBy: { createdAt: "desc" }, take: 10, skip: offset })
 		return payments
 	}
 }

@@ -7,9 +7,9 @@ export class LoadSalesRelatoryService {
 	) {}
 
 	async load(offset: number) {
+		console.time("salesRelatory")
 		const results = await this.paymentIntentRepository.findAllFilter(offset)
 		const relatory = []
-
 		for await (const item of results) {
 			const user = await this.usersRepository.findById(item.ownerId)
 
@@ -21,7 +21,7 @@ export class LoadSalesRelatoryService {
 				phone: user.phone,
 			})
 		}
-
+		console.timeEnd("salesRelatory")
 		return relatory
 	}
 }
