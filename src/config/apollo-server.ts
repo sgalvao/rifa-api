@@ -23,5 +23,5 @@ export const startApolloServer = async (app: Express) => {
 
 	await server.start()
 
-	server.applyMiddleware({ app })
+	server.applyMiddleware({ app, cors: { origin: "*" } })
 }
