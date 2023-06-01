@@ -40,13 +40,12 @@ export default gql`
 	extend type Query {
 		adminLogin(email: String!, password: String!): Admin
 		loadAdmin: Admin @admin
-		loadSalesAmount: SalesResult
-		loadLastPayments: [PaymentResult]
-		loadSalesRelatory(offset: Int): [SalesRelatory]
-		loadPartners: [Partner]
+		loadSalesAmount: SalesResult @admin
+		loadSalesRelatory(offset: Int): [SalesRelatory] @admin
+		loadPartners: [Partner] @admin
 	}
 
 	extend type Mutation {
-		createAdmin(admin: AdminInput!): Admin
+		createAdmin(admin: AdminInput!): Admin @admin
 	}
 `

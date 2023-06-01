@@ -1,11 +1,10 @@
 import { CreateAdminService } from "@/domain/services"
 import { AdminAuthService } from "@/domain/services/admin-auth-service"
-import { LoadLastPaymentsService } from "@/domain/services/load-last-payments-service"
 import { LoadPartnersService } from "@/domain/services/load-partners-service"
 import { LoadSalesAmountService } from "@/domain/services/load-sales-amount-service"
 import { LoadSalesRelatoryService } from "@/domain/services/load-sales-relatory"
 import { HashProvider, JwtProvider } from "@/infra/providers"
-import { AdminRepository, PaymentIntentRepository, RifaRepository, UsersRepository } from "@/infra/repositories"
+import { AdminRepository, PaymentIntentRepository, UsersRepository } from "@/infra/repositories"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 
 const makeAdminAuthentication = () => {
@@ -33,14 +32,6 @@ const makeLoadSalesAmount = () => {
 	return loadSalesAmountService
 }
 
-const makeLoadLastPayments = () => {
-	const paymentIntentRepository = new PaymentIntentRepository()
-	const usersRepository = new UsersRepository()
-	const loadLastPayments = new LoadLastPaymentsService(paymentIntentRepository, usersRepository)
-
-	return loadLastPayments
-}
-
 const makeLoadSalesRelatory = () => {
 	const paymentIntentRepository = new PaymentIntentRepository()
 	const usersRepository = new UsersRepository()
@@ -61,7 +52,6 @@ export default {
 	Query: {
 		adminLogin: (_, args) => makeAdminAuthentication().auth(args),
 		loadSalesAmount: (_, args) => makeLoadSalesAmount().load(),
-		loadLastPayments: (_, args) => makeLoadLastPayments().load(),
 		loadSalesRelatory: (_, { offset }) => makeLoadSalesRelatory().load(offset),
 		loadPartners: (_, args) => makeLoadPartners().load(),
 	},
