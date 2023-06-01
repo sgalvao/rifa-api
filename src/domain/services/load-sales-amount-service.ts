@@ -4,6 +4,7 @@ export class LoadSalesAmountService {
 	constructor(private readonly paymentIntentRepository: PaymentIntentRepository) {}
 
 	async load() {
+		console.time("salesAmount")
 		const payments = await this.paymentIntentRepository.findAll()
 		const payedPayments = payments.filter((payment) => payment.status === "approved")
 
@@ -18,6 +19,7 @@ export class LoadSalesAmountService {
 			soldNumbers,
 			restNumber,
 		}
+		console.timeEnd("salesAmount")
 
 		return result
 	}

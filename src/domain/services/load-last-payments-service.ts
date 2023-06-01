@@ -8,6 +8,7 @@ export class LoadLastPaymentsService {
 
 	async load() {
 		const result = []
+		console.time("lastPayments")
 
 		try {
 			const lastPayment = await this.paymentIntentRepository.findLastFive()
@@ -20,7 +21,7 @@ export class LoadLastPaymentsService {
 					date: item.createdAt,
 				})
 			}
-
+			console.timeEnd("lastPayments")
 			return result
 		} catch (e) {
 			console.log(e)
