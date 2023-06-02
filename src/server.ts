@@ -12,9 +12,11 @@ import { SocketProvider } from "./infra/providers/socket-provider"
 const app = express()
 app.use(express.json())
 
-const server = http.createServer(app)
+export const server = http.createServer(app)
 
-SocketProvider(server)
+const { handleConnection } = SocketProvider(server)
+
+handleConnection()
 
 startApolloServer(app)
 setupRoutes(app)

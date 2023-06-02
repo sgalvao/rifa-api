@@ -1,7 +1,10 @@
 import { MercadoPagoProvider } from "@/infra/providers/mercado-pago"
 import { PushOverProvider } from "@/infra/providers/pushover-provider"
+import { SocketProvider } from "@/infra/providers/socket-provider"
 import { PaymentIntentRepository, RifaRepository } from "@/infra/repositories"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
+import { server } from "@/server"
+const { handleConnection } = SocketProvider(server)
 export class VerifyPaymentStatusService {
 	constructor(
 		private readonly rifaRepository: RifaRepository,
@@ -37,6 +40,7 @@ export class VerifyPaymentStatusService {
 			if (result.body.status === "approved") {
 				const payment = await this.paymentIntentRepository.updateStatus(paymentIntent[i].id, "approved")
 
+				handleConnection()
 				if (payment.referralCode) {
 					await this.partnerRepository.addBalance({
 						balance: payment.totalValue * 0.3,
