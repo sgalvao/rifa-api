@@ -56,7 +56,7 @@ model PaymentIntent {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   numbers       Int[]
   createdAt     DateTime @default(now())
-  ownerId       String
+  ownerId       String 
   rifaId        String
   status        String
   quantity      Int

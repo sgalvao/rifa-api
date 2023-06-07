@@ -167,7 +167,52 @@ export class PaymentIntentRepository {
 	}
 
 	async findAllFilter(offset = 0) {
-		const payments = await prisma.paymentIntent.findMany({ orderBy: { createdAt: "desc" }, take: 10, skip: offset })
-		return payments
+		const payment = await prisma.paymentIntent.aggregateRaw({
+			pipeline: [
+				{
+					$project: {
+						_id: 0,
+						value: { $toDouble: "$totalValue" },
+						status: 1,
+						ownerId: { $toObjectId: "$ownerId" },
+						createdAt: 1,
+					},
+				},
+
+				{
+					$lookup: {
+						from: "User",
+						localField: "ownerId",
+						foreignField: "_id",
+						as: "owner",
+					},
+				},
+				{
+					$unwind: {
+						path: "$owner",
+						preserveNullAndEmptyArrays: true,
+					},
+				},
+				{
+					$project: {
+						value: 1,
+						status: 1,
+						name: "$owner.name",
+						phone: "$owner.phone",
+						date: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$createdAt" } },
+					},
+				},
+				{
+					$sort: {
+						date: -1,
+					},
+				},
+				{
+					$limit: 10,
+				},
+			],
+		})
+
+		return payment
 	}
 }
