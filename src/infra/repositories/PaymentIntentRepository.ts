@@ -208,7 +208,7 @@ export class PaymentIntentRepository {
 					},
 				},
 				{
-					$limit: 10,
+					$limit: 30,
 				},
 			],
 		})

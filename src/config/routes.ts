@@ -5,6 +5,7 @@ import { PaymentIntentRepository, RifaRepository } from "@/infra/repositories"
 import { PartnerRepository } from "@/infra/repositories/PartnerRepository"
 import { handleUserList } from "@/utils/get-expired-payment-users"
 import { Express } from "express"
+import { prisma } from "./prisma-client"
 
 const makePaymentVerifyStatus = () => {
 	const rifaRepository = new RifaRepository()
