@@ -42,54 +42,58 @@ model Rifa {
 }
 
 model Winners {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  winnerName   String
-  winnerId     String
-  winnerNumber Int
-  rifaName     String
-  rifaImage    String
-  rifaId       String
-  createdAt    DateTime @default(now())
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  winnerName      String
+  winnerId        String
+  winnerNumber    Int
+  rifaName        String
+  rifaImage       String
+  rifaId          String
+  paymentId       String
+  date            DateTime
+  phone           String
+  quantityNumbers Int
+  numbers         Int[]
+  createdAt       DateTime @default(now())
 }
 
 model PaymentIntent {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   numbers       Int[]
   createdAt     DateTime @default(now())
-  ownerId       String 
+  ownerId       String
   rifaId        String
   status        String
   quantity      Int
   transactionId String
   copyPasteCode String
   qrCode        String
-  referralCode String?
+  referralCode  String?
   totalValue    Float
   value         Float
 }
 
 model TransactionStatement {
-    id            String   @id @default(auto()) @map("_id") @db.ObjectId
-    partnerId String
-    value Float
-    transactionDate DateTime
-    action String?
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  partnerId       String
+  value           Float
+  transactionDate DateTime
+  action          String?
 }
 
 model Partner {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
-  phone String
-  password String
-  isActive Boolean @default(true)
-  referralCode String @unique
-  balance Float @default(0)
-  totalBalance Float @default(0)
-  pixCode String
-  cpf String
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String  @unique
+  phone        String
+  password     String
+  isActive     Boolean @default(true)
+  referralCode String  @unique
+  balance      Float   @default(0)
+  totalBalance Float   @default(0)
+  pixCode      String
+  cpf          String
 }
-
 
 model Admin {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -97,6 +101,6 @@ model Admin {
   name      String
   email     String   @unique
   password  String
-  phone String
-  isActive Boolean @default(false)
+  phone     String
+  isActive  Boolean  @default(false)
 }

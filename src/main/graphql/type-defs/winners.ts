@@ -8,6 +8,11 @@ export default gql`
 		winnerId: String
 		winnerName: String
 		winnerNumber: Int
+		date: DateTime
+		quantityNumbers: Int
+		numbers: [Int]
+		paymentId: String
+		phone: String
 		createdAt: DateTime
 	}
 

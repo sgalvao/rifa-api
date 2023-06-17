@@ -71,6 +71,7 @@ export class PaymentIntentRepository {
 				AND: [{ rifaId }, { status: "approved" }, { numbers: { hasSome: [drawnNumber] } }],
 			},
 		})
+
 		return payment
 	}
 

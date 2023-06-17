@@ -61,12 +61,12 @@ export default gql`
 			image: String!
 			description: String!
 		): Rifa @admin
+		checkWinner(rifaId: String!, drawnNumber: Int!): WinnerResult @admin
 	}
 
 	extend type Query {
 		loadRifas: [Rifa]
 		loadRifa(rifaId: String!): Rifa
-		checkWinner(rifaId: String!, drawnNumber: Int!): WinnerResult @admin
 		loadRanking(rifaId: String!): [RankingResult]
 	}
 `

@@ -10,6 +10,11 @@ export class WinnersRepository {
 				winnerId: params.winnerId,
 				winnerName: params.winnerName,
 				winnerNumber: params.winnerNumber,
+				paymentId: params.paymentId,
+				date: params.date,
+				phone: params.phone,
+				quantityNumbers: params.quantityNumbers,
+				numbers: params.numbers,
 			},
 		})
 		return winner

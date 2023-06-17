@@ -24,7 +24,7 @@ export class VerifyPaymentStatusService {
 			try {
 				result = await mercadoPago.payment.get(parseInt(paymentIntent[i].transactionId))
 			} catch (e) {
-				console.log(e)
+				throw new Error(e)
 			}
 
 			const isExpired = Boolean(new Date(result.body.date_of_expiration) < new Date())

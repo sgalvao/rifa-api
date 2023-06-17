@@ -19,13 +19,13 @@ export class CheckWinnerService {
 			const isSold = Boolean(rifa.soldNumbers.find((el) => el === drawnNumber))
 
 			if (!isSold) {
-				throw new Error("Número não foi vendido")
+				throw new Error("Número não pago")
 			}
 
 			const payment = await this.paymentIntentRepository.verifyWinner(rifaId, drawnNumber)
 
 			if (!payment) {
-				throw new Error("Numero não foi pago!")
+				throw new Error("Numero não pago!")
 			}
 
 			const user = await this.usersRepository.findById(payment.ownerId)
@@ -44,6 +44,11 @@ export class CheckWinnerService {
 				winnerId: rifaWinner.winnerId,
 				winnerName: rifaWinner.winnerName,
 				winnerNumber: rifaWinner.winnerNumber,
+				paymentId: payment.id,
+				date: payment.createdAt,
+				phone: user.phone,
+				quantityNumbers: payment.numbers.length,
+				numbers: payment.numbers,
 			}
 
 			const createWinner = await this.winnersRepository.create(winnerParams)

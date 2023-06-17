@@ -48,6 +48,9 @@ export default {
 		createRifa: async (_, args) => {
 			return makeCreateRifa().create({ ...args })
 		},
+		checkWinner: async (_, { rifaId, drawnNumber }, adminId) => {
+			return makeCheckWinner().check(rifaId, drawnNumber)
+		},
 	},
 
 	Query: {
@@ -55,7 +58,6 @@ export default {
 			return makeLoadRifa().load(rifaId)
 		},
 		loadRifas: async () => makeLoadRifas().load(),
-		checkWinner: async (_, { rifaId, drawnNumber }) => makeCheckWinner().check(rifaId, drawnNumber),
 		loadRanking: async (_, { rifaId }) => makeLoadRanking().load(rifaId),
 	},
 }
